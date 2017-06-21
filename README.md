@@ -1,1 +1,1 @@
-# jira-score
+# jira-scoreCreate a **.env** file with the follow data:{    "login": "",    "pass": "",    "domain": "",    "id": ""}### For Alterdata Users// Save this filter into your jira, then get the filter ID from the URL!`category = Cirrus AND resolution = Resolvido AND assignee = YOUR_LOGIN AND resolved >= 2017-06-01 AND resolved <= "2017-06-30 23:59" ORDER BY resolved DESC`
