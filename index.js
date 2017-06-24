@@ -5,7 +5,7 @@ const fs = require('fs');
 const config = JSON.parse(fs.readFileSync('.env', 'utf8'));
 
 const base64 = Buffer.from(`${config.login}:${config.pass}`).toString('base64')
-const filterUrl = `http://${config.domain}/issues/?filter=${config.id}`
+const filterUrl = `http://${config.domain}/issues/?filter=${config.filter_id}`
 
 const headers = { 'Authorization': `Basic ${base64}` }
 const options = {
