@@ -1,4 +1,4 @@
-const request = require('request')
+const axios = require('axios')
 const cheerio = require('cheerio')
 const fs = require('fs');
 
@@ -9,7 +9,6 @@ const filterUrl = `http://${config.domain}/issues/?filter=${config.filter_id}`
 
 const headers = { 'Authorization': `Basic ${base64}` }
 const options = {
-    url: filterUrl,
     headers
 }
 
@@ -24,9 +23,7 @@ const pontuations = ( dificulty ) => {
     return (dificulties[ dificulty ] || dificulties['Muito simples'])()
 }
 
-const printIssues = ( error, response, body ) => {
-    if (error) console.log('Error on request!')
-
+const printIssues = body => {
     const $ = cheerio.load( body )
     const tableBody = $('#issuetable tbody tr')
     let totalIssues = 0
@@ -51,4 +48,7 @@ const printIssues = ( error, response, body ) => {
     console.log(`Total issues: ${totalIssues}`)
     console.log(`Total pontuation: ${totalPontuation}`)
 }
-request(options, printIssues)
+
+axios.get(filterUrl, options)
+    .then( response => printIssues(response.data) )
+    .catch( response => console.log(`Error: ${response}`) )
