@@ -88,7 +88,7 @@ test('First issues must have all fields right', done => {
         const issues = parser(data).issues()
         const actual = issues[0]
         const expected = {
-            key: 'ASK-99',
+            key: 'TES-99',
             difficulty: 'Não classificado',
             pontuation: 30
         }

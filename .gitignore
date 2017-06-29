@@ -56,6 +56,3 @@ typings/
 
 # dotenv environment variables file
 .env
-
-# HTML page for tests
-tests/*.html
