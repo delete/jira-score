@@ -4,12 +4,16 @@
   "description": "GET a list of issues from Jira scraping the page.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "jest --watchAll"
   },
   "author": "@delete",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.16.2",
     "cheerio": "^1.0.0-rc.1"
+  },
+  "devDependencies": {
+    "jest": "^20.0.4"
   }
 }
