@@ -9,7 +9,7 @@ test('Total must be 40', done => {
         if (err) throw err
 
         const actual = parser(data).total()
-        const expected = 40
+        const expected = 46
    
         expect(actual).toBe(expected);
 
@@ -24,7 +24,7 @@ test('Scored issues must be 35', done => {
         if (err) throw err
 
         const actual = parser(data).scored()
-        const expected = 35
+        const expected = 43
    
         expect(actual).toBe(expected);
 
@@ -39,7 +39,7 @@ test('Pontuation must be 1140', done => {
         if (err) throw err
 
         const actual = parser(data).pontuation()
-        const expected = 1140
+        const expected = 3635
    
         expect(actual).toBe(expected);
 
@@ -55,7 +55,7 @@ test('Total issues \' array objects length  must be 40', done => {
         
         const issues = parser(data).issues()
         const actual = issues.length
-        const expected = 40
+        const expected = 46
    
         expect(actual).toBe(expected);
 
@@ -71,7 +71,7 @@ test('Scored issues \' array objects length  must be 35', done => {
         
         const issues = parser(data).scoredIssues()
         const actual = issues.length
-        const expected = 35
+        const expected = 43
    
         expect(actual).toBe(expected);
 
@@ -80,22 +80,46 @@ test('Scored issues \' array objects length  must be 35', done => {
 
 })
 
-test('First issues must have all fields right', done => {
+test('Issues must have all fields right', done => {
     
     loadFile(MOCK_FILE, (err, data) => {
         if (err) throw err
         
         const issues = parser(data).issues()
-        const actual = issues[0]
+        const actual = issues[6]
         const expected = {
-            key: 'TES-99',
+            key: 'TEST-814',
             difficulty: 'Não classificado',
-            pontuation: 30
+            pontuation: 30,
+            time: 175,
+            type: 'Programação'
         }
    
         expect(actual).toMatchObject(expected);
 
         done() 
+    })
+
+})
+
+test('First issues customer servicemust all fields right', done => {
+
+    loadFile(MOCK_FILE, (err, data) => {
+        if (err) throw err
+
+        const issues = parser(data).issues()
+        const actual = issues[0]
+        const expected = {
+            key: 'TEST-822',
+            difficulty: 'Não classificado',
+            pontuation: 0,
+            time: 208,
+            type: 'Atendimento'
+        }
+
+        expect(actual).toMatchObject(expected);
+
+        done()
     })
 
 })
