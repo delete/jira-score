@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+    - "7"
+    - "8"
+    - "iojs"
+    - "node"
+cache:
+    directories:
+        - "node_modules"
