@@ -1,54 +1,26 @@
-const axios = require('axios')
-const cheerio = require('cheerio')
-const fs = require('fs');
+'use strict'
 
-const config = JSON.parse(fs.readFileSync('.env', 'utf8'));
+const get = require('./src/request')
+const { loadFile } = require('./src/utils')
+const { auth, url } = require('./src/configs')
+const parser = require('./src/parser')
 
-const base64 = Buffer.from(`${config.login}:${config.pass}`).toString('base64')
-const filterUrl = `http://${config.domain}/issues/?filter=${config.filter_id}`
+const printIssue = issue => console.log( `${issue.key} -> ${issue.difficulty} -> ${issue.pontuation}` )
 
-const headers = { 'Authorization': `Basic ${base64}` }
-const options = {
-    headers
-}
+const print = data => {
+    const jira = parser(data)
+    const issues = jira.scoredIssues()
 
-const pontuations = ( dificulty ) => {
-    const dificulties = {
-        'Muito simples': () => 30,
-        'Simples': () => 75,
-        'Média': () => 160,
-        'Difícil': () => 320,
-        'Muito difícil': () => 560,
-    }
-    return (dificulties[ dificulty ] || dificulties['Muito simples'])()
-}
-
-const printIssues = body => {
-    const $ = cheerio.load( body )
-    const tableBody = $('#issuetable tbody tr')
-    let totalIssues = 0
-    let totalPontuation = 0
-
-    tableBody.each(function() {
-        const children = $(this).children()
-        const issueKey = $(children).filter('.issuekey').text().trim()
-        let issueDifficulty = $(children).filter('.customfield_17132').text().trim()
-        
-        const issueDifficultySplitted = issueDifficulty.split('-')
-        issueDifficulty = issueDifficultySplitted[ issueDifficultySplitted.length - 1 ].trim()
-        
-        if ( issueDifficulty ) {
-            totalIssues++
-            const pontuation = pontuations(issueDifficulty)
-            totalPontuation += pontuation
-            console.log( `${issueKey} -> ${issueDifficulty} -> ${pontuation}` )
-        }
-    })
+    issues.map( printIssue )
     
-    console.log(`Total issues: ${totalIssues}`)
-    console.log(`Total pontuation: ${totalPontuation}`)
+    console.log(`\n\nTotal issues: ${jira.scored()}`)
+    console.log(`Total pontuation: ${jira.pontuation()}`)
 }
 
-axios.get(filterUrl, options)
-    .then( response => printIssues(response.data) )
-    .catch( response => console.log(`Error: ${response}`) )
+const filterUrl = url()
+const headers = { 'Authorization': `Basic ${auth()}` }
+const options = { headers }
+
+get(filterUrl, options)
+    .then( response => print(response.data) )
+    .catch( response => console.log( `Error: ${response.message}` ) )
