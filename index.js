@@ -2,7 +2,7 @@
 
 const get = require('./src/request')
 const { loadFile } = require('./src/utils')
-const { auth, url } = require('./src/configs')
+const { auth, url, goal } = require('./src/configs')
 const parser = require('./src/parser')
 
 const printIssue = issue => console.log( `${issue.key} -> ${issue.difficulty} -> ${issue.pontuation}` )
@@ -12,9 +12,12 @@ const print = data => {
     const issues = jira.scoredIssues()
 
     issues.map( printIssue )
-    
-    console.log(`\n\nTotal issues: ${jira.scored()}`)
+
+    console.log(`\n\nTotal atendimento: ${jira.customerService()}`)
+    console.log(`Total tempo: ${jira.customerServiceTime()} minutos`)
+    console.log(`Total issues: ${jira.scored()}`)
     console.log(`Total pontuation: ${jira.pontuation()}`)
+    console.log(`Goal: ${goal()}`)
 }
 
 const filterUrl = url()
