@@ -33,7 +33,7 @@ test('Scored issues must be 35', done => {
 
 })
 
-test('Pontuation must be 1140', done => {
+test('Pontuation must be 3635', done => {
     
     loadFile(MOCK_FILE, (err, data) => {
         if (err) throw err
@@ -102,22 +102,30 @@ test('Issues must have all fields right', done => {
 
 })
 
-test('First issues customer servicemust all fields right', done => {
+test('Total customer service must be 3', done => {
 
     loadFile(MOCK_FILE, (err, data) => {
         if (err) throw err
 
-        const issues = parser(data).issues()
-        const actual = issues[0]
-        const expected = {
-            key: 'TEST-822',
-            difficulty: 'Não classificado',
-            pontuation: 0,
-            time: 208,
-            type: 'Atendimento'
-        }
+        const actual = parser(data).customerService()
+        const expected = 3
 
-        expect(actual).toMatchObject(expected);
+        expect(actual).toBe(expected);
+
+        done()
+    })
+
+})
+
+test('Total customer service time must be 487', done => {
+
+    loadFile(MOCK_FILE, (err, data) => {
+        if (err) throw err
+
+        const actual = parser(data).customerServiceTime()
+        const expected = 487
+
+        expect(actual).toBe(expected);
 
         done()
     })

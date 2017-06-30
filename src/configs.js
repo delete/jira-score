@@ -11,10 +11,10 @@ const auth = () => to64(config.login, config.pass)
 
 const url = () => `http://${config.domain}/issues/?filter=${config.filter_id}`
 
-const meta = () => config.meta
+const goal = () => config.goal
 
 module.exports = {
     auth,
     url,
-    meta
+    goal
 }

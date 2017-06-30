@@ -18,13 +18,12 @@ const isWeek = ( string ) => string.length === 4
 const isDay = ( string ) => string.length === 3
 const isHour = ( string ) => string.length === 2
 
-
 const formatTimeString = ( rawString ) => {
     const time = rawString.match(/\d+/g);
     let minutes = 0
     if ( time ) {
         if ( isWeek(time) ) {
-            minutes = (parseInt(time[0]) * 7 * 8 * 60) + (parseInt(time[1]) * 8 * 60) + (parseInt(time[2]) * 60) + parseInt(time[3])
+            minutes = (parseInt(time[0]) * 5 * 8 * 60) + (parseInt(time[1]) * 8 * 60) + (parseInt(time[2]) * 60) + parseInt(time[3])
         } else if ( isDay(time) ) {
             minutes = (parseInt(time[0]) * 8 * 60) + (parseInt(time[1]) * 60) + parseInt(time[2])
         } else if ( isHour(time) ) {
