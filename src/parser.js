@@ -18,18 +18,25 @@ const isWeek = ( string ) => string.length === 4
 const isDay = ( string ) => string.length === 3
 const isHour = ( string ) => string.length === 2
 
+const hourToMin = ( value ) => value * 60
+const dayToMin = ( value ) => 8 * hourToMin( value )
+const weekToMin = ( value ) => 5 * dayToMin( value )
+
 const formatTimeString = ( rawString ) => {
     const time = rawString.match(/\d+/g);
     let minutes = 0
     if ( time ) {
+        for ( let item in time ) {
+            time[item] = parseInt(time[item])
+        }
         if ( isWeek(time) ) {
-            minutes = (parseInt(time[0]) * 5 * 8 * 60) + (parseInt(time[1]) * 8 * 60) + (parseInt(time[2]) * 60) + parseInt(time[3])
+            minutes = weekToMin(time[0]) + dayToMin(time[1]) + hourToMin(time[2]) + time[3]
         } else if ( isDay(time) ) {
-            minutes = (parseInt(time[0]) * 8 * 60) + (parseInt(time[1]) * 60) + parseInt(time[2])
+            minutes = dayToMin(time[0]) + hourToMin(time[1]) + time[2]
         } else if ( isHour(time) ) {
-            minutes = (parseInt(time[0]) * 60) + parseInt(time[1])
+            minutes = hourToMin(time[0]) + time[1]
         } else {
-            minutes = parseInt(time[0])
+            minutes = time[0]
         }
     }
     return minutes
@@ -49,7 +56,7 @@ const getIssueInfoFromRow = ( row ) =>  {
         difficulty: formatDificultyString(difficulty)
     }
 }
-const hasScore = issue => issue.pontuation > 0
+const hasScore = ( issue ) => issue.pontuation > 0
 
 module.exports = ( body ) => {
     const $ = cheerio.load( body )
@@ -57,6 +64,23 @@ module.exports = ( body ) => {
     let totalPontuation = 0
     let totalcustomerService = 0
     let totalCustomerServiceTime = 0
+    let totalNotClassified = 0
+    let totalVerySimple = 0
+    let totalSimple = 0
+    let totalMedium = 0
+    let totalHard = 0
+    let totalVeryHard = 0
+    const totalByDifficulty = ( slug ) => {
+        const countIssue = {
+                'NC': () => (totalNotClassified += 1),
+                'VS': () => (totalVerySimple += 1),
+                'S': () => (totalSimple += 1),
+                'M': () => (totalMedium += 1),
+                'H': () => (totalHard += 1),
+                'VH': () => (totalVeryHard += 1)
+            }
+        return (countIssue[ slug ])()
+    }
     const allIssues = []
     
     tableBody.each(function() {
@@ -68,7 +92,9 @@ module.exports = ( body ) => {
         }
 
         if ( issue.difficulty && issue.type !== 'Atendimento' ) {
-            issue.pontuation = pontuations(issue.difficulty)
+            let issueScored = pontuations(issue.difficulty)
+            issue.pontuation = issueScored.points
+            totalByDifficulty(issueScored.slug)
         } else {
             issue.pontuation = 0
         }
@@ -86,6 +112,12 @@ module.exports = ( body ) => {
         scored: () => scoredIssues.length,
         scoredIssues: () => scoredIssues,
         customerService: () => totalcustomerService,
-        customerServiceTime: () => totalCustomerServiceTime
+        customerServiceTime: () => totalCustomerServiceTime,
+        notClassifiedIssues: () => totalNotClassified,
+        verySimpleIssues: () => totalVerySimple,
+        simpleIssues: () => totalSimple,
+        mediumIssues: () => totalMedium,
+        hardIssues: () => totalHard,
+        veryHardIssues: () => totalVeryHard
     }
 }

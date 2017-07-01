@@ -2,11 +2,12 @@
 
 module.exports = ( dificulty ) => {
     const dificulties = {
-        'Muito simples': () => 30,
-        'Simples': () => 75,
-        'Média': () => 160,
-        'Difícil': () => 320,
-        'Muito difícil': () => 560,
+        'Não Classificado': () => ({'points': 30, 'slug': 'NC'}),
+        'Muito simples': () => ({'points': 30, 'slug': 'VS'}),
+        'Simples': () => ({'points': 75, 'slug': 'S'}),
+        'Média': () => ({'points': 160, 'slug': 'M'}),
+        'Difícil': () => ({'points': 320, 'slug': 'H'}),
+        'Muito difícil': () => ({'points': 560, 'slug': 'VH'}),
     }
-    return (dificulties[ dificulty ] || dificulties['Muito simples'])()
+    return (dificulties[ dificulty ] || dificulties['Não Classificado'])()
 }
