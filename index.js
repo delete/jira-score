@@ -13,8 +13,14 @@ const print = data => {
 
     issues.map( printIssue )
 
-    console.log(`\n\nTotal atendimento: ${jira.customerService()}`)
-    console.log(`Total tempo: ${jira.customerServiceTime()} minutos`)
+    console.log(`\n\nTotal Not Classified Issues: ${jira.notClassifiedIssues()}`)
+    console.log(`Total Very Simple Issues: ${jira.verySimpleIssues()}`)
+    console.log(`Total Simple Issues: ${jira.simpleIssues()}`)
+    console.log(`Total Medium Issues: ${jira.mediumIssues()}`)
+    console.log(`Total Hard Issues: ${jira.hardIssues()}`)
+    console.log(`Total Very Hard Issues: ${jira.veryHardIssues()}`)
+    console.log(`Total Customer Service: ${jira.customerService()}`)
+    console.log(`Total Customer Service Time: ${jira.customerServiceTime()} minutes`)
     console.log(`Total issues: ${jira.scored()}`)
     console.log(`Total pontuation: ${jira.pontuation()}`)
     console.log(`Goal: ${goal()}`)
