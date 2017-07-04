@@ -16,11 +16,11 @@ const dayToMin = ( value ) => 8 * hourToMin( value )
 const weekToMin = ( value ) => 5 * dayToMin( value )
 
 const timeStringToMinutes = ( rawString ) => {
+    if ( !rawString ) return 0
+    
     const timeList = rawString.split(',')
     const getIntegerValue = ( string ) => parseInt(string.match(/\d+/))
 
-    if ( !timeList.length ) return 
-    
     return timeList.reduce((totalMinutes, time) => {
         const timeValue = getIntegerValue(time.trim())
 

@@ -11,6 +11,14 @@ describe('Function: Base64', () => {
 })
 
 describe('Function: timeStringToMinutes', () => {
+    test('Empty string must return 0 minutes', () => {
+        const payload = ''
+        const expected = 0
+
+        const result = utils.timeStringToMinutes(payload)
+        expect(result).toBe(expected)
+    })
+
     test('30 minutes must return 30 minutes', () => {
         const payload = '30 minutes'
         const expected = 30
