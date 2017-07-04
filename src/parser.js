@@ -2,6 +2,7 @@
 
 const cheerio = require('cheerio')
 const pontuations = require('./pontuations')
+const { timeStringToMinutes } = require('./utils.js')
 
 const filterElementDOM = ( element, toFilter ) => element.filter(toFilter).text().trim()
 const getIssueKey = ( element ) => filterElementDOM(element, '.issuekey')
@@ -14,34 +15,6 @@ const formatDificultyString = ( rawString ) => {
     return stringSplitted[ stringSplitted.length - 1 ].trim()
 }
 
-const isWeek = ( string ) => string.length === 4
-const isDay = ( string ) => string.length === 3
-const isHour = ( string ) => string.length === 2
-
-const hourToMin = ( value ) => value * 60
-const dayToMin = ( value ) => 8 * hourToMin( value )
-const weekToMin = ( value ) => 5 * dayToMin( value )
-
-const formatTimeString = ( rawString ) => {
-    const time = rawString.match(/\d+/g);
-    let minutes = 0
-    if ( time ) {
-        for ( let item in time ) {
-            time[item] = parseInt(time[item])
-        }
-        if ( isWeek(time) ) {
-            minutes = weekToMin(time[0]) + dayToMin(time[1]) + hourToMin(time[2]) + time[3]
-        } else if ( isDay(time) ) {
-            minutes = dayToMin(time[0]) + hourToMin(time[1]) + time[2]
-        } else if ( isHour(time) ) {
-            minutes = hourToMin(time[0]) + time[1]
-        } else {
-            minutes = time[0]
-        }
-    }
-    return minutes
-}
-
 const getIssueInfoFromRow = ( row ) =>  {
     const children = row.children()
     const key = getIssueKey(children)
@@ -52,11 +25,11 @@ const getIssueInfoFromRow = ( row ) =>  {
     return {
         key,
         type,
-        time: formatTimeString(customerServiceTime),
+        time: timeStringToMinutes(customerServiceTime),
         difficulty: formatDificultyString(difficulty)
     }
 }
-const hasScore = ( issue ) => issue.pontuation > 0
+const hasScore = ( issue ) => issue.pontuation > 0 && (issue.type != 'Atendimento' && issue.type != 'Novo Recurso')
 
 module.exports = ( body ) => {
     const $ = cheerio.load( body )
@@ -104,6 +77,8 @@ module.exports = ( body ) => {
     }) 
     
     const scoredIssues = allIssues.filter( issue => hasScore(issue) )
+    
+    const issuesFromPagination = parseInt($('.results-count-total').first().text())
 
     return {
         total: () => allIssues.length,
@@ -118,6 +93,7 @@ module.exports = ( body ) => {
         simpleIssues: () => totalSimple,
         mediumIssues: () => totalMedium,
         hardIssues: () => totalHard,
-        veryHardIssues: () => totalVeryHard
+        veryHardIssues: () => totalVeryHard,
+        pagination: () => issuesFromPagination
     }
 }
