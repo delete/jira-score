@@ -19,6 +19,14 @@ describe('Function: timeStringToMinutes', () => {
         expect(result).toBe(expected)
     })
 
+    test('1 minute must return 1 minute', () => {
+        const payload = '1 minute'
+        const expected = 1
+
+        const result = utils.timeStringToMinutes(payload)
+        expect(result).toBe(expected)
+    })
+
     test('30 minutes must return 30 minutes', () => {
         const payload = '30 minutes'
         const expected = 30

@@ -6,7 +6,6 @@ const toBase64 = string =>  Buffer.from(string).toString('base64')
 
 const loadFile = ( name, callback ) => fs.readFile(name, "utf8", callback)
 
-const isMinute = ( string ) => /minute/i.test(string)
 const isWeek = ( string ) => /week/i.test(string)
 const isDay = ( string ) => /day/i.test(string)
 const isHour = ( string ) => /hour/i.test(string)
@@ -30,7 +29,7 @@ const timeStringToMinutes = ( rawString ) => {
             return totalMinutes + dayToMin(timeValue)
         } else if ( isHour(time) ) {
             return  totalMinutes + hourToMin(timeValue)
-        } else if( isMinute(time) ) {
+        } else {
             return totalMinutes + timeValue
         }
     }, 0)
