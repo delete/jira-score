@@ -3,6 +3,21 @@ const { loadFile } = require('../src/utils')
 
 const MOCK_FILE = './tests/test_page.html'
 
+test('Total issues from pagination must be 48', done => {
+    
+    loadFile(MOCK_FILE, (err, data) => {
+        if (err) throw err
+
+        const actual = parser(data).pagination()
+        const expected = 48
+   
+        expect(actual).toBe(expected);
+
+        done() 
+    })
+
+})
+
 test('Total must be 48', done => {
     
     loadFile(MOCK_FILE, (err, data) => {

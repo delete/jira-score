@@ -77,6 +77,8 @@ module.exports = ( body ) => {
     }) 
     
     const scoredIssues = allIssues.filter( issue => hasScore(issue) )
+    
+    const issuesFromPagination = parseInt($('.results-count-total').first().text())
 
     return {
         total: () => allIssues.length,
@@ -91,6 +93,7 @@ module.exports = ( body ) => {
         simpleIssues: () => totalSimple,
         mediumIssues: () => totalMedium,
         hardIssues: () => totalHard,
-        veryHardIssues: () => totalVeryHard
+        veryHardIssues: () => totalVeryHard,
+        pagination: () => issuesFromPagination
     }
 }
