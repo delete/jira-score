@@ -11,7 +11,7 @@ test('Total issues from pagination must be 48', done => {
         const actual = parser(data).pagination()
         const expected = 48
    
-        expect(actual).toBe(expected);
+        expect(actual).toBe(expected)
 
         done() 
     })
@@ -26,22 +26,22 @@ test('Total must be 48', done => {
         const actual = parser(data).total()
         const expected = 48
    
-        expect(actual).toBe(expected);
+        expect(actual).toBe(expected)
 
         done() 
     })
 
 })
 
-test('Scored issues must be 45', done => {
+test('Scored issues must be 44', done => {
     
     loadFile(MOCK_FILE, (err, data) => {
         if (err) throw err
 
         const actual = parser(data).scored()
-        const expected = 45
+        const expected = 44
    
-        expect(actual).toBe(expected);
+        expect(actual).toBe(expected)
 
         done() 
     })
@@ -56,7 +56,7 @@ test('Pontuation must be 4515', done => {
         const actual = parser(data).pontuation()
         const expected = 4515
    
-        expect(actual).toBe(expected);
+        expect(actual).toBe(expected)
 
         done() 
     })
@@ -72,23 +72,24 @@ test('Total issues \' array objects length  must be 48', done => {
         const actual = issues.length
         const expected = 48
    
-        expect(actual).toBe(expected);
+        expect(actual).toBe(expected)
 
         done() 
     })
 
 })
 
-test('Scored issues \' array objects length  must be 45', done => {
+test('Scored issues array objects length must be 44', done => {
+    // 3 are customer service and 1 is New Resource, does not count.
     
     loadFile(MOCK_FILE, (err, data) => {
         if (err) throw err
         
         const issues = parser(data).scoredIssues()
         const actual = issues.length
-        const expected = 45
+        const expected = 44
    
-        expect(actual).toBe(expected);
+        expect(actual).toBe(expected)
 
         done() 
     })
@@ -110,14 +111,14 @@ test('Issues must have all fields right', done => {
             type: 'Programação'
         }
    
-        expect(actual).toMatchObject(expected);
+        expect(actual).toMatchObject(expected)
 
         done() 
     })
 
 })
 
-test('Total customer service must be 3', done => {
+test('Total customer service issues must be 3', done => {
 
     loadFile(MOCK_FILE, (err, data) => {
         if (err) throw err
@@ -125,14 +126,14 @@ test('Total customer service must be 3', done => {
         const actual = parser(data).customerService()
         const expected = 3
 
-        expect(actual).toBe(expected);
+        expect(actual).toBe(expected)
 
         done()
     })
 
 })
 
-test('Total customer service time must be 487', done => {
+test('Total customer service issues time must be 487 minutes', done => {
 
     loadFile(MOCK_FILE, (err, data) => {
         if (err) throw err
@@ -140,14 +141,14 @@ test('Total customer service time must be 487', done => {
         const actual = parser(data).customerServiceTime()
         const expected = 487
 
-        expect(actual).toBe(expected);
+        expect(actual).toBe(expected)
 
         done()
     })
 
 })
 
-test('Total not classified service must be 4', done => {
+test('Total not classified issues must be 4', done => {
 
     loadFile(MOCK_FILE, (err, data) => {
         if (err) throw err
@@ -155,14 +156,14 @@ test('Total not classified service must be 4', done => {
         const actual = parser(data).notClassifiedIssues()
         const expected = 4
 
-        expect(actual).toBe(expected);
+        expect(actual).toBe(expected)
 
         done()
     })
 
 })
 
-test('Total very simple service must be 2', done => {
+test('Total very simple issues must be 2', done => {
 
     loadFile(MOCK_FILE, (err, data) => {
         if (err) throw err
@@ -170,14 +171,14 @@ test('Total very simple service must be 2', done => {
         const actual = parser(data).verySimpleIssues()
         const expected = 2
 
-        expect(actual).toBe(expected);
+        expect(actual).toBe(expected)
 
         done()
     })
 
 })
 
-test('Total simple service must be 29', done => {
+test('Total simple issues must be 29', done => {
 
     loadFile(MOCK_FILE, (err, data) => {
         if (err) throw err
@@ -185,14 +186,14 @@ test('Total simple service must be 29', done => {
         const actual = parser(data).simpleIssues()
         const expected = 29
 
-        expect(actual).toBe(expected);
+        expect(actual).toBe(expected)
 
         done()
     })
 
 })
 
-test('Total medium service must be 8', done => {
+test('Total medium issues must be 8', done => {
 
     loadFile(MOCK_FILE, (err, data) => {
         if (err) throw err
@@ -200,14 +201,14 @@ test('Total medium service must be 8', done => {
         const actual = parser(data).mediumIssues()
         const expected = 8
 
-        expect(actual).toBe(expected);
+        expect(actual).toBe(expected)
 
         done()
     })
 
 })
 
-test('Total hard service must be 1', done => {
+test('Total hard issues must be 1', done => {
 
     loadFile(MOCK_FILE, (err, data) => {
         if (err) throw err
@@ -215,14 +216,14 @@ test('Total hard service must be 1', done => {
         const actual = parser(data).hardIssues()
         const expected = 1
 
-        expect(actual).toBe(expected);
+        expect(actual).toBe(expected)
 
         done()
     })
 
 })
 
-test('Total very hard service must be 1', done => {
+test('Total very hard issues must be 1', done => {
 
     loadFile(MOCK_FILE, (err, data) => {
         if (err) throw err
@@ -230,7 +231,7 @@ test('Total very hard service must be 1', done => {
         const actual = parser(data).veryHardIssues()
         const expected = 1
 
-        expect(actual).toBe(expected);
+        expect(actual).toBe(expected)
 
         done()
     })

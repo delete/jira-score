@@ -29,7 +29,7 @@ const getIssueInfoFromRow = ( row ) =>  {
         difficulty: formatDificultyString(difficulty)
     }
 }
-const hasScore = ( issue ) => issue.pontuation > 0
+const hasScore = ( issue ) => issue.pontuation > 0 && (issue.type != 'Atendimento' && issue.type != 'Novo Recurso')
 
 module.exports = ( body ) => {
     const $ = cheerio.load( body )
