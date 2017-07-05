@@ -48,13 +48,13 @@ test('Scored issues must be 44', done => {
 
 })
 
-test('Pontuation must be 4515', done => {
+test('Pontuation must be 4485', done => {
     
     loadFile(MOCK_FILE, (err, data) => {
         if (err) throw err
 
         const actual = parser(data).pontuation()
-        const expected = 4515
+        const expected = 4485
    
         expect(actual).toBe(expected)
 
@@ -148,13 +148,13 @@ test('Total customer service issues time must be 487 minutes', done => {
 
 })
 
-test('Total not classified issues must be 4', done => {
-
+test('Total not classified issues must be 3', done => {
+    // Issues with type equals to 'Programação' and 'Teste'
     loadFile(MOCK_FILE, (err, data) => {
         if (err) throw err
 
         const actual = parser(data).notClassifiedIssues()
-        const expected = 4
+        const expected = 3
 
         expect(actual).toBe(expected)
 

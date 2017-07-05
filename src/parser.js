@@ -29,11 +29,14 @@ const getIssueInfoFromRow = ( row ) =>  {
         difficulty: formatDificultyString(difficulty)
     }
 }
-const hasScore = ( issue ) => issue.pontuation > 0 && (issue.type != 'Atendimento' && issue.type != 'Novo Recurso')
 
-module.exports = ( body ) => {
+const canClassify = ( issueType ) => (issueType === 'Programação' || issueType === 'Teste')
+const hasScore = ( issue ) => issue.pontuation > 0 && canClassify(issue.type)
+
+const parser = ( body ) => {
     const $ = cheerio.load( body )
     const tableBody = $('#issuetable tbody tr')
+
     let totalPontuation = 0
     let totalcustomerService = 0
     let totalCustomerServiceTime = 0
@@ -43,6 +46,7 @@ module.exports = ( body ) => {
     let totalMedium = 0
     let totalHard = 0
     let totalVeryHard = 0
+    
     const totalByDifficulty = ( slug ) => {
         const countIssue = {
                 'NC': () => (totalNotClassified += 1),
@@ -64,7 +68,7 @@ module.exports = ( body ) => {
             totalCustomerServiceTime += issue.time
         }
 
-        if ( issue.difficulty && issue.type !== 'Atendimento' ) {
+        if ( issue.difficulty && canClassify(issue.type) ) {
             let issueScored = pontuations(issue.difficulty)
             issue.pontuation = issueScored.points
             totalByDifficulty(issueScored.slug)
@@ -97,3 +101,5 @@ module.exports = ( body ) => {
         pagination: () => issuesFromPagination
     }
 }
+
+module.exports = parser
