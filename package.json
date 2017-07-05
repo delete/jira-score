@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "jest",
-    "testw": "jest --watchAll"
+    "testw": "jest --watchAll --verbose --coverage"
   },
   "author": "@delete",
   "license": "MIT",
