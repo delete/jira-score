@@ -26,7 +26,10 @@ const print = data => {
     console.log(`Goal: ${goal()}`)
 }
 
-const filterUrl = url()
+const startDate = '2017-06-01'
+const endDate = '2017-06-30'
+
+const filterUrl = url( startDate, endDate )
 const headers = { 'Authorization': `Basic ${auth()}` }
 const options = { headers }
 
