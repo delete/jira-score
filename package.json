@@ -11,8 +11,7 @@
   "author": "@delete",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.16.2",
-    "cheerio": "^1.0.0-rc.1"
+    "axios": "^0.16.2"
   },
   "devDependencies": {
     "jest": "^20.0.4"
