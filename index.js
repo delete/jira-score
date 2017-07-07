@@ -8,8 +8,7 @@ const parser = require('./src/parser')
 const printIssue = issue => console.log( `${issue.key} -> ${issue.difficulty} -> ${issue.pontuation}` )
 
 const print = data => {
-    const dataObj = JSON.parse(data)
-    const jira = parser(dataObj)
+    const jira = parser(data)
     const issues = jira.scoredIssues()
     const issuesByDifficulty = jira.totalIssuesByDifficulty
 

@@ -34,18 +34,17 @@ const canClassify = ( issueType ) => (issueType === 'Programação' || issueType
 const hasScore = ( issue ) => issue.pontuation > 0 && canClassify(issue.type)
 
 const parser = ( body ) => {
-
     const issues = body.issues.map(function(issue) {
         const newIssue = getIssueInfo( issue )
 
-        if ( issue.difficulty && canClassify(issue.type) ) {
-            const issueScored = pontuations(issue.difficulty)
-            issue.pontuation = issueScored.points
+        if ( newIssue.difficulty && canClassify(newIssue.type) ) {
+            const issueScored = pontuations(newIssue.difficulty)
+            newIssue.pontuation = issueScored.points
         } else {
-            issue.pontuation = 0
+            newIssue.pontuation = 0
         }
 
-        return issue
+        return newIssue
     })
     
 	const scoredIssues = issues.filter( issue => hasScore(issue) )
