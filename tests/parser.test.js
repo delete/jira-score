@@ -1,130 +1,128 @@
 const parser = require('../src/parser')
 const { loadFile } = require('../src/utils')
 
-const MOCK_FILE = './tests/test_page.html'
+const MOCK_FILE = './tests/issues.json'
 
-test('Total issues from pagination must be 48', done => {
-    
+
+test('Total must be 10', done => {
+
     loadFile(MOCK_FILE, (err, data) => {
+        const dataObj = JSON.parse(data)
         if (err) throw err
 
-        const actual = parser(data).pagination()
-        const expected = 48
-   
+        const actual = parser(dataObj).total()
+        const expected = 10
+
         expect(actual).toBe(expected)
 
-        done() 
+        done()
     })
 
 })
 
-test('Total must be 48', done => {
-    
+test('Scored issues must be 9', done => {
+
     loadFile(MOCK_FILE, (err, data) => {
+        const dataObj = JSON.parse(data)
         if (err) throw err
 
-        const actual = parser(data).total()
-        const expected = 48
-   
+        const actual = parser(dataObj).scored()
+        const expected = 9
+
         expect(actual).toBe(expected)
 
-        done() 
+        done()
     })
 
 })
 
-test('Scored issues must be 44', done => {
-    
+test('Pontuation must be 1235', done => {
+    // Não Classificada 30
+    // 4 Muito simples (4x30)
+    // 1 Simples 75
+    // 1 Média 160
+    // 1 Difícil 320
+    // 1 Muito difícil 560
     loadFile(MOCK_FILE, (err, data) => {
+        const dataObj = JSON.parse(data)
         if (err) throw err
 
-        const actual = parser(data).scored()
-        const expected = 44
-   
+        const actual = parser(dataObj).pontuation()
+        const expected = 1265
+
         expect(actual).toBe(expected)
 
-        done() 
+        done()
     })
 
 })
 
-test('Pontuation must be 4485', done => {
-    
+test('Total issues \' array objects length  must be 10', done => {
+
     loadFile(MOCK_FILE, (err, data) => {
+        const dataObj = JSON.parse(data)
         if (err) throw err
 
-        const actual = parser(data).pontuation()
-        const expected = 4485
-   
-        expect(actual).toBe(expected)
-
-        done() 
-    })
-
-})
-
-test('Total issues \' array objects length  must be 48', done => {
-    
-    loadFile(MOCK_FILE, (err, data) => {
-        if (err) throw err
-        
-        const issues = parser(data).issues()
+        const issues = parser(dataObj).issues()
         const actual = issues.length
-        const expected = 48
-   
+        const expected = 10
+
         expect(actual).toBe(expected)
 
-        done() 
+        done()
     })
 
 })
 
-test('Scored issues array objects length must be 44', done => {
-    // 3 are customer service and 1 is New Resource, does not count.
-    
+test('Scored issues array objects length must be 9', done => {
+    // 1 is customer service
+
     loadFile(MOCK_FILE, (err, data) => {
+        const dataObj = JSON.parse(data)
         if (err) throw err
-        
-        const issues = parser(data).scoredIssues()
+
+        const issues = parser(dataObj).scoredIssues()
         const actual = issues.length
-        const expected = 44
-   
+        const expected = 9
+
         expect(actual).toBe(expected)
 
-        done() 
+        done()
     })
 
 })
 
 test('Issues must have all fields right', done => {
-    
+
     loadFile(MOCK_FILE, (err, data) => {
+        const dataObj = JSON.parse(data)
         if (err) throw err
-        
-        const issues = parser(data).issues()
+
+        const issues = parser(dataObj).issues()
         const actual = issues[6]
         const expected = {
-            key: 'TEST-814',
-            difficulty: 'Não classificado',
-            pontuation: 30,
-            time: 175,
-            type: 'Programação'
+            key: 'TEST-113',
+            difficulty: 'Não Classificado',
+            pontuation: 0,
+            time: 60,
+            type: 'Atendimento'
         }
-   
+
         expect(actual).toMatchObject(expected)
 
-        done() 
+        done()
     })
 
 })
 
-test('Total customer service issues must be 3', done => {
+test('Total customer service issues must be 1', done => {
 
     loadFile(MOCK_FILE, (err, data) => {
+        const dataObj = JSON.parse(data)
         if (err) throw err
 
-        const actual = parser(data).customerService()
-        const expected = 3
+        const actual = parser(dataObj).customerService()
+        const expected = 1
 
         expect(actual).toBe(expected)
 
@@ -133,13 +131,14 @@ test('Total customer service issues must be 3', done => {
 
 })
 
-test('Total customer service issues time must be 487 minutes', done => {
+test('Total customer service issues time must be 60 minutes', done => {
 
     loadFile(MOCK_FILE, (err, data) => {
+        const dataObj = JSON.parse(data)
         if (err) throw err
 
-        const actual = parser(data).customerServiceTime()
-        const expected = 487
+        const actual = parser(dataObj).customerServiceTime()
+        const expected = 60
 
         expect(actual).toBe(expected)
 
@@ -148,14 +147,15 @@ test('Total customer service issues time must be 487 minutes', done => {
 
 })
 
-test('Total not classified issues must be 3', done => {
+test('Total not classified issues must be 1', done => {
     // Issues with type equals to 'Programação' and 'Teste'
     loadFile(MOCK_FILE, (err, data) => {
+        const dataObj = JSON.parse(data)
         if (err) throw err
-        
-        const issues = parser(data).totalIssuesByDifficulty
+
+        const issues = parser(dataObj).totalIssuesByDifficulty
         const actual = issues.notClassified
-        const expected = 3
+        const expected = 1
 
         expect(actual).toBe(expected)
 
@@ -164,14 +164,15 @@ test('Total not classified issues must be 3', done => {
 
 })
 
-test('Total very simple issues must be 2', done => {
+test('Total very simple issues must be 4', done => {
 
     loadFile(MOCK_FILE, (err, data) => {
+        const dataObj = JSON.parse(data)
         if (err) throw err
 
-        const issues = parser(data).totalIssuesByDifficulty
+        const issues = parser(dataObj).totalIssuesByDifficulty
         const actual = issues.verySimple
-        const expected = 2
+        const expected = 4
 
         expect(actual).toBe(expected)
 
@@ -180,14 +181,15 @@ test('Total very simple issues must be 2', done => {
 
 })
 
-test('Total simple issues must be 29', done => {
+test('Total simple issues must be 1', done => {
 
     loadFile(MOCK_FILE, (err, data) => {
+        const dataObj = JSON.parse(data)
         if (err) throw err
 
-        const issues = parser(data).totalIssuesByDifficulty
+        const issues = parser(dataObj).totalIssuesByDifficulty
         const actual = issues.simple
-        const expected = 29
+        const expected = 1
 
         expect(actual).toBe(expected)
 
@@ -196,14 +198,15 @@ test('Total simple issues must be 29', done => {
 
 })
 
-test('Total medium issues must be 8', done => {
+test('Total medium issues must be 1', done => {
 
     loadFile(MOCK_FILE, (err, data) => {
+        const dataObj = JSON.parse(data)
         if (err) throw err
 
-        const issues = parser(data).totalIssuesByDifficulty
+        const issues = parser(dataObj).totalIssuesByDifficulty
         const actual = issues.medium
-        const expected = 8
+        const expected = 1
 
         expect(actual).toBe(expected)
 
@@ -215,9 +218,10 @@ test('Total medium issues must be 8', done => {
 test('Total hard issues must be 1', done => {
 
     loadFile(MOCK_FILE, (err, data) => {
+        const dataObj = JSON.parse(data)
         if (err) throw err
 
-        const issues = parser(data).totalIssuesByDifficulty
+        const issues = parser(dataObj).totalIssuesByDifficulty
         const actual = issues.hard
         const expected = 1
 
@@ -231,9 +235,10 @@ test('Total hard issues must be 1', done => {
 test('Total very hard issues must be 1', done => {
 
     loadFile(MOCK_FILE, (err, data) => {
+        const dataObj = JSON.parse(data)
         if (err) throw err
 
-        const issues = parser(data).totalIssuesByDifficulty
+        const issues = parser(dataObj).totalIssuesByDifficulty
         const actual = issues.veryHard
         const expected = 1
 

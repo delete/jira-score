@@ -1,14 +1,11 @@
 'use strict'
 
-const cheerio = require('cheerio')
 const pontuations = require('./pontuations')
-const { timeStringToMinutes } = require('./utils.js')
 
-const filterElementDOM = ( element, toFilter ) => element.filter(toFilter).text().trim()
-const getIssueKey = ( element ) => filterElementDOM(element, '.issuekey')
-const getIssueDificulty = ( element ) => filterElementDOM(element, '.customfield_17132')
-const getIssueType = ( element ) => filterElementDOM(element, '.customfield_21711')
-const getCustomerServiceTime = ( element ) => filterElementDOM(element, '.timespent')
+const getIssueKey = ( element ) => element.key
+const getIssueDificulty = ( element ) => element.fields.customfield_17132.value
+const getIssueType = ( element ) => element.fields.customfield_21711
+const getCustomerServiceTime = ( element ) => element.fields.timespent
 
 const countIssuesByType = ( issues, type ) => issues.reduce( (total, issue ) => issue.type === type ? total + 1 : total, 0 )
 const countIssuesByDifficulty = ( issues, difficulty ) => issues.reduce( (total, issue ) => issue.difficulty === difficulty && canClassify(issue.type) ? total + 1 : total, 0 )
@@ -20,17 +17,15 @@ const formatDificultyString = ( rawString ) => {
     return stringSplitted[ stringSplitted.length - 1 ].trim()
 }
 
-const getIssueInfoFromRow = ( row ) =>  {
-    const children = row.children()
-    const key = getIssueKey(children)
-    const type = getIssueType(children)
-    const customerServiceTime = getCustomerServiceTime(children)
-    const difficulty = getIssueDificulty(children)
-    
+const getIssueInfo = ( obj ) =>  {
+    const key = getIssueKey( obj )
+    const type = getIssueType( obj )
+    const customerServiceTime = getCustomerServiceTime( obj )
+    const difficulty = getIssueDificulty( obj )
     return {
         key,
         type,
-        time: timeStringToMinutes(customerServiceTime),
+        time: (customerServiceTime / 60),
         difficulty: formatDificultyString(difficulty)
     }
 }
@@ -39,48 +34,41 @@ const canClassify = ( issueType ) => (issueType === 'Programação' || issueType
 const hasScore = ( issue ) => issue.pontuation > 0 && canClassify(issue.type)
 
 const parser = ( body ) => {
-    const $ = cheerio.load( body )
-    const tableBody = $('#issuetable tbody tr')
+    const issues = body.issues.map(function(issue) {
+        const newIssue = getIssueInfo( issue )
 
-    const allIssues = tableBody.map(function() {
-        const issue = getIssueInfoFromRow( $(this) )
-
-        if ( issue.difficulty && canClassify(issue.type) ) {
-            const issueScored = pontuations(issue.difficulty)
-            issue.pontuation = issueScored.points
+        if ( newIssue.difficulty && canClassify(newIssue.type) ) {
+            const issueScored = pontuations(newIssue.difficulty)
+            newIssue.pontuation = issueScored.points
         } else {
-            issue.pontuation = 0
+            newIssue.pontuation = 0
         }
+
+        return newIssue
+    })
         
-        return issue
-    }).get()
+    const scoredIssues = issues.filter( issue => hasScore(issue) )
+    const totalcustomerService = countIssuesByType( issues, 'Atendimento' )
+    const totalPontuation = sumPontuation( issues )
+    const totalCustomerServiceTime = sumTime( issues, 'Atendimento' ) 
     
-    const scoredIssues = allIssues.filter( issue => hasScore(issue) )
-    
-    const totalcustomerService = countIssuesByType(allIssues, 'Atendimento')
-
-    const totalPontuation = sumPontuation( allIssues )
-    const totalCustomerServiceTime = sumTime( allIssues, 'Atendimento' ) 
-    const issuesFromPagination = parseInt($('.results-count-total').first().text())
-
     const totalIssuesByDifficulty = {
-        notClassified: countIssuesByDifficulty( allIssues, 'Não classificado'),
-        verySimple: countIssuesByDifficulty( allIssues, 'Muito simples'),
-        simple: countIssuesByDifficulty( allIssues, 'Simples'),
-        medium: countIssuesByDifficulty( allIssues, 'Média'),
-        hard: countIssuesByDifficulty( allIssues, 'Difícil'),
-        veryHard: countIssuesByDifficulty( allIssues, 'Muito difícil')
+        notClassified: countIssuesByDifficulty( issues, 'Não classificado'),
+        verySimple: countIssuesByDifficulty( issues, 'Muito simples'),
+        simple: countIssuesByDifficulty( issues, 'Simples'),
+        medium: countIssuesByDifficulty( issues, 'Média'),
+        hard: countIssuesByDifficulty( issues, 'Difícil'),
+        veryHard: countIssuesByDifficulty( issues, 'Muito difícil')
     }
-
+    
     return {
-        total: () => allIssues.length,
+        total: () => issues.length,
         pontuation: () => totalPontuation,
-        issues: () => allIssues,
+        issues: () => issues,
         scored: () => scoredIssues.length,
         scoredIssues: () => scoredIssues,
         customerService: () => totalcustomerService,
         customerServiceTime: () => totalCustomerServiceTime,
-        pagination: () => issuesFromPagination,
         totalIssuesByDifficulty: totalIssuesByDifficulty
     }
 }
