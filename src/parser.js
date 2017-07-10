@@ -25,7 +25,7 @@ const getIssueInfo = ( obj ) =>  {
     return {
         key,
         type,
-        time: customerServiceTime ? (customerServiceTime / 60) : 0,
+        time: (customerServiceTime / 60),
         difficulty: formatDificultyString(difficulty)
     }
 }
@@ -46,13 +46,13 @@ const parser = ( body ) => {
 
         return newIssue
     })
-    
-	const scoredIssues = issues.filter( issue => hasScore(issue) )
+        
+    const scoredIssues = issues.filter( issue => hasScore(issue) )
     const totalcustomerService = countIssuesByType( issues, 'Atendimento' )
     const totalPontuation = sumPontuation( issues )
     const totalCustomerServiceTime = sumTime( issues, 'Atendimento' ) 
     
-	const totalIssuesByDifficulty = {
+    const totalIssuesByDifficulty = {
         notClassified: countIssuesByDifficulty( issues, 'Não classificado'),
         verySimple: countIssuesByDifficulty( issues, 'Muito simples'),
         simple: countIssuesByDifficulty( issues, 'Simples'),

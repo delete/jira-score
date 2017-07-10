@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "jest",
+    "test": "jest --verbose",
     "testw": "jest --watchAll --verbose --coverage"
   },
   "author": "@delete",
