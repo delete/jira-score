@@ -7,7 +7,11 @@ const rtm = new RtmClient(bot_token);
 
 rtm.on(RTM_EVENTS.MESSAGE, (message) => {
     const msg = messages(message.text, message.user)
-    rtm.sendMessage(msg, message.channel)
+    if ( typeof(msg) != 'string' ) {
+        msg.then((m) => rtm.sendMessage(m, message.channel) )
+    } else {
+        rtm.sendMessage(msg, message.channel)
+    }
 });
 
 rtm.start()

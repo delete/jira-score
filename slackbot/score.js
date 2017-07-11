@@ -12,7 +12,11 @@ module.exports = user => {
     const headers = { 'Authorization': `Basic ${auth()}` }
     const options = { headers }
 
-    get(filterUrl, options)
-        .then( response => `Total de pontos: ${parser(response).jira.scored()}` )
-        .catch( response => console.log( `Error: ${response.message}` ) )
+    return get(filterUrl, options)
+        .then( response => {
+            const jira = parser(response.data)
+            const scored = jira.pontuation()
+            return `Total de pontos: ${scored}`
+        })
+        .catch( response => `Error: ${response.message}` )
 }
