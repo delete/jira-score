@@ -49,7 +49,7 @@ test('Scored issues must be 9', done => {
 
 })
 
-test('Pontuation must be 1235', done => {
+test('Pontuation must be 1265', done => {
     // Não Classificada 30
     // 4 Muito simples (4x30)
     // 1 Simples 75

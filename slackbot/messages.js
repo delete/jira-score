@@ -1,6 +1,22 @@
 'use strict'
-const score = require('./score')
+const { score, issues } = require('./commands')
 const users = {}
+
+const isLogged = ( user ) => users.hasOwnProperty(user)
+
+const getScore = user => {
+        if  ( !isLogged(user) ) {
+            return 'Ou! Preciso do seu login antes!'
+        }
+        return score( users[ user ] ).then( message => message )
+    }
+
+const getIssues = user => {
+    if  ( !isLogged(user) ) {
+        return 'Ou! Preciso do seu login antes!'
+    }
+    return issues( users[ user ] ).then( message => message )
+}
 
 module.exports = ( message, user ) => {
     if ( message.endsWith('.dsn.cir') ) {
@@ -13,17 +29,12 @@ module.exports = ( message, user ) => {
         console.log(users)
         return 'Ai sim!'
     }
-
-    const getScore = user => {
-        if  ( !users.hasOwnProperty(user) ) {
-            return 'Ou! Preciso do seu login antes!'
-        }
-        return score( users[ user ] ).then( message => message )
-    }
   
     const messages = {
         'Oi': () => `Eai <@${user}>!`,
-        'pontos': () => getScore(user),
+        'pontos': () => getScore( user ),
+        'issues': () => getIssues( user ),
+        'ajuda': () => '"pontos" para pegar seus pontos e "issues" para listar suas quantidades.',
         'score': () => 'Ta tirando onda em inglês, é? Mas tenta **pontos** que funciona.',
         'pra fora': () => 'haha. Engraçadinho.',
         'default': () => 'Não entendi, fala pra fora.'
