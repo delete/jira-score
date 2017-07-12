@@ -413,7 +413,7 @@
 			"timespent": 2460,
 			"customfield_17132": {
 				"self": "http://MYDOMAIN:8080/rest/api/2/customFieldOption/15804",
-				"value": "0 - Não classificado",
+				"value": "0 - Não Classificado",
 				"id": "15804"
 			},
 			"project": {
@@ -562,6 +562,62 @@
 				"timeZone": "America/Sao_Paulo"
 			},
 			"customfield_21711": "Teste"
+		}
+	}, {
+		"expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields",
+		"id": "690161",
+		"self": "http://MYDOMAIN:8080/rest/api/2/issue/690161",
+		"key": "TEST-113",
+		"fields": {
+			"issuetype": {
+				"self": "http://MYDOMAIN:8080/rest/api/2/issuetype/23",
+				"id": "23",
+				"description": "Uma tarefa que precisa ser feita.",
+				"iconUrl": "http://MYDOMAIN:8080/secure/viewavatar?size=xsmall&avatarId=22878&avatarType=issuetype",
+				"name": "Tarefa",
+				"subtask": false,
+				"avatarId": 22878
+			},
+			"timespent": 7200,
+			"customfield_17132": {
+				"self": "http://MYDOMAIN:8080/rest/api/2/customFieldOption/15804",
+				"value": "0 - Não Classificado",
+				"id": "15804"
+			},
+			"project": {
+				"self": "http://MYDOMAIN:8080/rest/api/2/project/17274",
+				"id": "17274",
+				"key": "TEST",
+				"name": "Project",
+				"avatarUrls": {
+					"48x48": "http://MYDOMAIN:8080/secure/projectavatar?pid=17274&avatarId=22964",
+					"24x24": "http://MYDOMAIN:8080/secure/projectavatar?size=small&pid=17274&avatarId=22964",
+					"16x16": "http://MYDOMAIN:8080/secure/projectavatar?size=xsmall&pid=17274&avatarId=22964",
+					"32x32": "http://MYDOMAIN:8080/secure/projectavatar?size=medium&pid=17274&avatarId=22964"
+				},
+				"projectCategory": {
+					"self": "http://MYDOMAIN:8080/rest/api/2/projectCategory/10002",
+					"id": "10002",
+					"description": "Projetos do setor de novas tecnologias",
+					"name": "Group"
+				}
+			},
+			"assignee": {
+				"self": "http://MYDOMAIN:8080/rest/api/2/user?username=myuser",
+				"name": "myuser",
+				"key": "user.group",
+				"emailAddress": "myuser@mycompany.com.br",
+				"avatarUrls": {
+					"48x48": "http://MYDOMAIN:8080/secure/useravatar?ownerId=user.group&avatarId=23764",
+					"24x24": "http://MYDOMAIN:8080/secure/useravatar?size=small&ownerId=user.group&avatarId=23764",
+					"16x16": "http://MYDOMAIN:8080/secure/useravatar?size=xsmall&ownerId=user.group&avatarId=23764",
+					"32x32": "http://MYDOMAIN:8080/secure/useravatar?size=medium&ownerId=user.group&avatarId=23764"
+				},
+				"displayName": "myuser",
+				"active": true,
+				"timeZone": "America/Sao_Paulo"
+			},
+			"customfield_21711": "Tarefa"
 		}
 	}]
 }
