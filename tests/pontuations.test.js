@@ -94,18 +94,26 @@ describe('Issue: Muito Difícil', () => {
 
 describe('Issue: Não classificado', () => {
     test('"Não classificado" must have "NC" as slug', () => {
-        const payload = 'Não classificado'
+        let payload = 'Não classificado'
         const expected = 'NC' 
         
-        const result = pontuations(payload).slug
+        let result = pontuations(payload).slug
+        expect(result).toBe(expected)
+
+        payload = 'Não Classificado'
+        result = pontuations(payload).slug
         expect(result).toBe(expected)
     })
 
     test('"Não classificado" must return 30', () => {
-        const payload = 'Não classificado'
+        let payload = 'Não classificado'
         const expected = 30
         
-        const result = pontuations(payload).points
+        let result = pontuations(payload).points
+        expect(result).toBe(expected)
+
+        payload = 'Não Classificado'
+        result = pontuations(payload).points
         expect(result).toBe(expected)
     })
 })

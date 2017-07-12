@@ -19,7 +19,7 @@ const getIssues = user => {
 }
 
 module.exports = ( message, user ) => {
-    if ( message.endsWith('.dsn.cir') ) {
+    if ( message.endsWith('.dsn.cir') || message.endsWith('.qld.cir') ) {
         const names = Object.values(users)
         if ( names.includes(message) ) {
             return 'Opa, opa! Esse usuário já existe meu chapa!'

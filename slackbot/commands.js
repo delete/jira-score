@@ -36,7 +36,7 @@ const score = ( user ) => {
 const issues = ( user ) => {
     return loadIssues( user )
         .then( issues => {
-            const nc = countIssuesByDifficulty( issues, 'Não Classificado') 
+            const nc = countIssuesByDifficulty( issues, 'Não classificado') 
             const s = countIssuesByDifficulty( issues, 'Simples')
             const vs = countIssuesByDifficulty( issues, 'Muito simples')
             const m = countIssuesByDifficulty( issues, 'Média')
