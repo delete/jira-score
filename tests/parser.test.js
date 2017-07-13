@@ -83,7 +83,7 @@ test('Issues must have all fields right', done => {
         const actual = issues[6]
         const expected = {
             key: 'TEST-113',
-            difficulty: 'Não Classificado',
+            difficulty: 'Não classificado',
             pontuation: 0,
             time: 60,
             type: 'Atendimento'
@@ -176,7 +176,7 @@ test('Total not classified issues must be 1', done => {
         const dataObj = JSON.parse(data)
         const issues = parser(dataObj)
 
-        const actual = countIssuesByDifficulty( issues, 'Não Classificado')
+        const actual = countIssuesByDifficulty( issues, 'Não classificado')
         const expected = 1
 
         expect(actual).toBe(expected)

@@ -357,7 +357,7 @@
 			"timespent": 3600,
 			"customfield_17132": {
 				"self": "http://MYDOMAIN:8080/rest/api/2/customFieldOption/15804",
-				"value": "0 - Não Classificado",
+				"value": "0 - Não classificado",
 				"id": "15804"
 			},
 			"project": {
@@ -413,7 +413,7 @@
 			"timespent": 2460,
 			"customfield_17132": {
 				"self": "http://MYDOMAIN:8080/rest/api/2/customFieldOption/15804",
-				"value": "0 - Não Classificado",
+				"value": "0 - Não classificado",
 				"id": "15804"
 			},
 			"project": {
@@ -581,7 +581,7 @@
 			"timespent": 7200,
 			"customfield_17132": {
 				"self": "http://MYDOMAIN:8080/rest/api/2/customFieldOption/15804",
-				"value": "0 - Não Classificado",
+				"value": "0 - Não classificado",
 				"id": "15804"
 			},
 			"project": {
