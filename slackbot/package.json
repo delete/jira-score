@@ -1,0 +1,14 @@
+{
+  "name": "jira-issues-bot",
+  "version": "1.0.1",
+  "description": "GET a list of issues from Jira scraping the page.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "@delete",
+  "license": "MIT",
+  "dependencies": {
+    "@slack/client": "^3.10.0"
+  }
+}

@@ -4,26 +4,53 @@ const get = require('./src/request')
 const { loadFile } = require('./src/utils')
 const { auth, url, goal } = require('./src/configs')
 const parser = require('./src/parser')
+const { 
+    countIssuesByType,
+    countIssuesByDifficulty,
+    sumPontuation,
+    sumTime,
+    scoredIssues
+} = require('./src/filters')
 
 const printIssue = issue => console.log( `${issue.key} -> ${issue.difficulty} -> ${issue.pontuation}` )
 
 const print = data => {
-    const jira = parser(data)
-    const issues = jira.scoredIssues()
-    const issuesByDifficulty = jira.totalIssuesByDifficulty
+    const issues = parser(data)
 
     issues.map( printIssue )
 
-    console.log(`\n\nTotal Not Classified Issues: ${issuesByDifficulty.notClassified}`)
-    console.log(`Total Very Simple Issues: ${issuesByDifficulty.verySimple}`)
-    console.log(`Total Simple Issues: ${issuesByDifficulty.simple}`)
-    console.log(`Total Medium Issues: ${issuesByDifficulty.medium}`)
-    console.log(`Total Hard Issues: ${issuesByDifficulty.hard}`)
-    console.log(`Total Very Hard Issues: ${issuesByDifficulty.veryHard}`)
-    console.log(`Total Customer Service: ${jira.customerService()}`)
-    console.log(`Total Customer Service Time: ${jira.customerServiceTime()} minutes`)
-    console.log(`Total issues: ${jira.scored()}`)
-    console.log(`Total pontuation: ${jira.pontuation()}`)
+    const nc = countIssuesByDifficulty( issues, 'Não Classificado') 
+    const s = countIssuesByDifficulty( issues, 'Simples')
+    const vs = countIssuesByDifficulty( issues, 'Muito simples')
+    const m = countIssuesByDifficulty( issues, 'Média')
+    const h = countIssuesByDifficulty( issues, 'Difícil')
+    const vh = countIssuesByDifficulty( issues, 'Muito difícil')
+
+    const cs = countIssuesByType( issues, 'Atendimento')
+    const cst = sumTime( issues, 'Atendimento' )
+
+    const tasks = countIssuesByType( issues, 'Tarefa')
+    const taskstime = sumTime( issues, 'Tarefa' )
+
+    const pontuation = sumPontuation( issues )
+    const scored = scoredIssues( issues )
+
+    const percentage = (pontuation * 100) / goal();
+
+    console.log(`\n\nTotal Not Classified Issues: ${nc}`)
+    console.log(`Total Very Simple Issues: ${vs}`)
+    console.log(`Total Simple Issues: ${s}`)
+    console.log(`Total Medium Issues: ${m}`)
+    console.log(`Total Hard Issues: ${h}`)
+    console.log(`Total Very Hard Issues: ${vh}`)
+    console.log(`\nTotal Customer Service: ${cs}`)
+    console.log(`Total Customer Service Time: ${cst} minutes`)
+    console.log(`\nTotal Tasks: ${tasks}`)
+    console.log(`Total Tasks Time: ${taskstime} minutes`)
+    console.log(`\nTotal issues: ${issues.length}`)
+    console.log(`Scored issues: ${scored.length}`)
+    console.log(`Total pontuation: ${pontuation} -> ${percentage.toFixed(2)}`)
+    console.log(`Total to complete the goal: ${goal() - pontuation} -> ${100 - percentage.toFixed(2)}`)
     console.log(`Goal: ${goal()}`)
 }
 
