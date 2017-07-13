@@ -36,7 +36,7 @@ const score = ( user ) => {
             
             const response = [
                 `Você tem *${pontuation}* pontos e completou *${percentage}%* da meta *${objective}* !`,
-                `Faltam *${objective - pontuation}* pontos, *${100 - percentage}%* para bater a meta!`,
+                `Faltam *${objective - pontuation}* pontos, *${(100 - percentage).toFixed(2)}%* para bater a meta!`,
                 `\n${percentage < 33 ? lessThanOneThird : percentage < 50 ? lessThanHalf : moreThanHalf}`
             ]
             
