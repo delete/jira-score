@@ -1,7 +1,7 @@
 'use strict'
 
 const get = require('../src/request')
-const { auth, url } = require('../src/configs')
+const { auth, url, goal } = require('../src/configs')
 const parser = require('../src/parser')
 const { 
     countIssuesByType,
@@ -15,7 +15,8 @@ const loadIssues = ( user ) => {
     const startDate = '2017-07-01'
     const endDate = '2017-07-31'
 
-    const filterUrl = url( startDate, endDate, user )
+    // const filterUrl = url( startDate, endDate, user )
+    const filterUrl = 'http://127.0.0.1:8080/issues.json'
     const headers = { 'Authorization': `Basic ${auth()}` }
     const options = { headers }
 
@@ -27,8 +28,20 @@ const loadIssues = ( user ) => {
 const score = ( user ) => {
     return loadIssues( user )
         .then( issues => {
+            const objective = goal(user)
             const pontuation = sumPontuation( issues )
-            return `Wow... você tem ${pontuation} pontos!`
+            const percentage = ( (pontuation * 100) / objective ).toFixed(2);
+            const moreThanHalf = 'Tu ta o bichão memo, em?!'
+            const lessThanHalf = 'Anda logo com isso ae!'
+            const lessThanOneThird = 'Trabalha não?! É bom começar.'
+            
+            const response = [
+                `Você tem *${pontuation}* pontos e completou *${percentage}%* da meta *${objective}* !`,
+                `Faltam *${objective - pontuation}* pontos, *${100 - percentage}%* para bater a meta!`,
+                `\n${percentage < 33 ? lessThanOneThird : percentage < 50 ? lessThanHalf : moreThanHalf}`
+            ]
+            
+            return response.join('\n')
         })
         .catch( response => `Error: ${response.message}` )
 }
@@ -51,22 +64,22 @@ const issues = ( user ) => {
 
             const scored = scoredIssues( issues )
 
-            const string = [
-                `Issues Não Classificadas: ${nc}`,
-                `Issues Muito simples: ${vs}`,
-                `Issues Simples: ${s}`,
-                `Issues Médias: ${m}`,
-                `Issues Difíceis: ${h}`,
-                `Issues Muito díficeis: ${vh}`,
-                `\nIssues de Atendimento: ${cs}`,
-                `Total de tempo em issues de Atendimento: ${cst} minutes`,
-                `\nIssues de Tarefas: ${tasks}`,
-                `Total de tempo em issues de Tarefas: ${taskstime} minutes`,
-                `\nTotal de issues: ${issues.length}`,
-                `Total de issues pontuadas: ${scored.length}`
+            const response = [
+                `Issues Não Classificadas: *${nc}*`,
+                `Issues Muito simples: *${vs}*`,
+                `Issues Simples: *${s}*`,
+                `Issues Médias: *${m}*`,
+                `Issues Difíceis: *${h}*`,
+                `Issues Muito díficeis: *${vh}*`,
+                `\nIssues de Atendimento: *${cs}*`,
+                `Total de tempo em issues de Atendimento: *${cst} minutos*`,
+                `\nIssues de Tarefas: *${tasks}*`,
+                `Total de tempo em issues de Tarefas: *${taskstime} minutos*`,
+                `\nTotal de issues: *${issues.length}*`,
+                `Total de issues pontuadas: *${scored.length}*`
             ]
 
-            return string.join('\n')
+            return response.join('\n')
         })
         .catch( response => `Error: ${response.message}` )   
 }

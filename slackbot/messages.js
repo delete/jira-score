@@ -34,7 +34,8 @@ module.exports = ( message, user ) => {
         'Oi': () => `Eai <@${user}>!`,
         'pontos': () => getScore( user ),
         'issues': () => getIssues( user ),
-        'ajuda': () => '"pontos" para pegar seus pontos e "issues" para listar suas quantidades.',
+        'ajuda': () => '*pontos* para pegar seus pontos e *issues* para listar as quantidades.',
+        'help': () => '*pontos* para pegar seus pontos e *issues* para listar as quantidades.',
         'score': () => 'Ta tirando onda em inglês, é? Mas tenta **pontos** que funciona.',
         'pra fora': () => 'haha. Engraçadinho.',
         'default': () => 'Não entendi, fala pra fora.'

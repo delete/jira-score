@@ -35,6 +35,8 @@ const print = data => {
     const pontuation = sumPontuation( issues )
     const scored = scoredIssues( issues )
 
+    const percentage = (pontuation * 100) / goal();
+
     console.log(`\n\nTotal Not Classified Issues: ${nc}`)
     console.log(`Total Very Simple Issues: ${vs}`)
     console.log(`Total Simple Issues: ${s}`)
@@ -47,7 +49,8 @@ const print = data => {
     console.log(`Total Tasks Time: ${taskstime} minutes`)
     console.log(`\nTotal issues: ${issues.length}`)
     console.log(`Scored issues: ${scored.length}`)
-    console.log(`Total pontuation: ${pontuation}`)
+    console.log(`Total pontuation: ${pontuation} -> ${percentage.toFixed(2)}`)
+    console.log(`Total to complete the goal: ${goal() - pontuation} -> ${100 - percentage.toFixed(2)}`)
     console.log(`Goal: ${goal()}`)
 }
 
