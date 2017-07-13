@@ -1,6 +1,6 @@
 'use strict'
 
-const pontuations = require('./pontuations')
+const { getDifficulty, isClassified } = require('./pontuations')
 const formatDificultyString = require('./utils').splitAndReturnLast
 const { canClassify } = require('./filters')
 
@@ -24,8 +24,8 @@ module.exports = ( body ) => {
     return body.issues.map( issue => {
         const newIssue = getIssueInfo( issue )
 
-        if ( newIssue.difficulty && canClassify( newIssue.type ) ) {
-            const issueScored = pontuations( newIssue.difficulty )
+        if ( newIssue.difficulty && isClassified( newIssue.type ) ) {
+            const issueScored = getDifficulty( newIssue.difficulty )
             newIssue.pontuation = issueScored.points
         } else {
             newIssue.pontuation = 0
