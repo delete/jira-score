@@ -29,7 +29,11 @@ module.exports = ( message, user ) => {
         console.log(users)
         return 'Ai sim!'
     }
-  
+
+    if (  /.*bom dia.*/i.test(message) ) {
+        return 'Só se for para você!'
+    }
+    
     const messages = {
         'Oi': () => `Eai <@${user}>!`,
         'pontos': () => getScore( user ),

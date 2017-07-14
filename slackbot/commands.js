@@ -31,8 +31,7 @@ const score = ( user ) => {
             let pontuation = sumPontuation( issues )
 
             const cst = sumTime( issues, 'Atendimento' )
-            const taskstime = sumTime( issues, 'Tarefa' )
-            const totalTime = cst + taskstime
+            const totalTime = cst
             const timeInPoints = Math.round( totalTime * pointsMinute( user ) )
 
             pontuation = pontuation + timeInPoints
@@ -43,7 +42,7 @@ const score = ( user ) => {
             const lessThanOneThird = 'Trabalha não?! É bom começar.'
             
             const response = [
-                `Você fez *${totalTime} minutos*, o que da *${timeInPoints}* pontos`,
+                `Você fez *${totalTime} minutos* de atendimento, o que da *${timeInPoints}* pontos`,
                 `Você tem no total *${pontuation}* pontos e completou *${percentage}%* da meta *${objective}* !`,
                 `Faltam *${objective - pontuation}* pontos, *${(100 - percentage).toFixed(2)}%* para bater a meta!`,
                 `\n${percentage < 33 ? lessThanOneThird : percentage < 50 ? lessThanHalf : moreThanHalf}`
@@ -71,8 +70,6 @@ const issues = ( user ) => {
             const cstp = Math.round( cst * pointsPerMinute )
 
             const tasks = countIssuesByType( issues, 'Tarefa')
-            const taskstime = sumTime( issues, 'Tarefa' )
-            const taskstimepoint = Math.round( taskstime * pointsPerMinute )
 
             const scored = scoredIssues( issues )
 
@@ -86,7 +83,6 @@ const issues = ( user ) => {
                 `\nIssues de Atendimento: *${cs}*`,
                 `Total de tempo em issues de Atendimento: *${cst} minutos* - ${cstp} pontos`,
                 `\nIssues de Tarefas: *${tasks}*`,
-                `Total de tempo em issues de Tarefas: *${taskstime} minutos* - ${taskstimepoint} pontos`,
                 `\nTotal de issues: *${issues.length}*`,
                 `Total de issues pontuadas: *${scored.length}*`
             ]
