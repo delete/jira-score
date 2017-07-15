@@ -160,9 +160,9 @@ describe('Function: isClassified', () => {
         expect(result).toBe(expected)
     })
 
-    test('Must return false for "Tarefa" issues', () => {
+    test('Must return true for "Tarefa" issues', () => {
         const payload = 'Tarefa'
-        const expected = false
+        const expected = true
         const result = isClassified( payload )
         expect(result).toBe(expected)
     })

@@ -19,6 +19,7 @@ const isClassified = ( type ) => {
         'Manual / Documentação': () => true,
         'Liberação de Versão Web': () => true,
         'Liberação de Versão': () => true,
+        'Tarefa': () => true,
         'default': () => false
     }
     return (types[ type ] || types[ 'default' ])()

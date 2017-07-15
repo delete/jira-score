@@ -1,7 +1,7 @@
 'use strict'
 
 const get = require('../src/request')
-const { auth, url, goal } = require('../src/configs')
+const { auth, url, goal, pointsMinute } = require('../src/configs')
 const parser = require('../src/parser')
 const { 
     countIssuesByType,
@@ -28,14 +28,22 @@ const score = ( user ) => {
     return loadIssues( user )
         .then( issues => {
             const objective = goal(user)
-            const pontuation = sumPontuation( issues )
+            let pontuation = sumPontuation( issues )
+
+            const cst = sumTime( issues, 'Atendimento' )
+            const totalTime = cst
+            const timeInPoints = Math.round( totalTime * pointsMinute( user ) )
+
+            pontuation = pontuation + timeInPoints
+
             const percentage = ( (pontuation * 100) / objective ).toFixed(2);
             const moreThanHalf = 'Tu ta o bichão memo, em?!'
             const lessThanHalf = 'Anda logo com isso ae!'
             const lessThanOneThird = 'Trabalha não?! É bom começar.'
             
             const response = [
-                `Você tem *${pontuation}* pontos e completou *${percentage}%* da meta *${objective}* !`,
+                `Você fez *${totalTime} minutos* de atendimento, o que da *${timeInPoints}* pontos`,
+                `Você tem no total *${pontuation}* pontos e completou *${percentage}%* da meta *${objective}* !`,
                 `Faltam *${objective - pontuation}* pontos, *${(100 - percentage).toFixed(2)}%* para bater a meta!`,
                 `\n${percentage < 33 ? lessThanOneThird : percentage < 50 ? lessThanHalf : moreThanHalf}`
             ]
@@ -55,11 +63,13 @@ const issues = ( user ) => {
             const h = countIssuesByDifficulty( issues, 'Difícil')
             const vh = countIssuesByDifficulty( issues, 'Muito difícil')
 
+            const pointsPerMinute = pointsMinute( user )
+
             const cs = countIssuesByType( issues, 'Atendimento')
             const cst = sumTime( issues, 'Atendimento' )
+            const cstp = Math.round( cst * pointsPerMinute )
 
             const tasks = countIssuesByType( issues, 'Tarefa')
-            const taskstime = sumTime( issues, 'Tarefa' )
 
             const scored = scoredIssues( issues )
 
@@ -71,9 +81,8 @@ const issues = ( user ) => {
                 `Issues Difíceis: *${h}*`,
                 `Issues Muito díficeis: *${vh}*`,
                 `\nIssues de Atendimento: *${cs}*`,
-                `Total de tempo em issues de Atendimento: *${cst} minutos*`,
+                `Total de tempo em issues de Atendimento: *${cst} minutos* - ${cstp} pontos`,
                 `\nIssues de Tarefas: *${tasks}*`,
-                `Total de tempo em issues de Tarefas: *${taskstime} minutos*`,
                 `\nTotal de issues: *${issues.length}*`,
                 `Total de issues pontuadas: *${scored.length}*`
             ]

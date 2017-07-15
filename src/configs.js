@@ -15,8 +15,11 @@ const url = ( startDate='2017-06-01', endDate='2017-06-30', user=config.login ) 
 
 const goal = ( user='someone.dsn.cir' ) => /.*dsn.*/.test(user) ? parseInt(config.goalDSN) : parseInt(config.goalQLD)
 
+const pointsMinute = ( user='someone.dsn.cir' ) => /.*dsn.*/.test(user) ? (parseInt(config.pointsHourDSN) / 60) : (parseInt(config.pointsHourQLD) / 60)
+
 module.exports = {
     auth,
     url,
-    goal
+    goal,
+    pointsMinute
 }

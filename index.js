@@ -19,7 +19,7 @@ const print = data => {
 
     issues.map( printIssue )
 
-    const nc = countIssuesByDifficulty( issues, 'Não Classificado') 
+    const nc = countIssuesByDifficulty( issues, 'Não classificado') 
     const s = countIssuesByDifficulty( issues, 'Simples')
     const vs = countIssuesByDifficulty( issues, 'Muito simples')
     const m = countIssuesByDifficulty( issues, 'Média')
@@ -57,7 +57,8 @@ const print = data => {
 const startDate = '2017-07-01'
 const endDate = '2017-07-31'
 
-const filterUrl = url( startDate, endDate )
+// const filterUrl = url( startDate, endDate )
+const filterUrl = 'http://127.0.0.1:8080/issues.json'
 const headers = { 'Authorization': `Basic ${auth()}` }
 const options = { headers }
 
