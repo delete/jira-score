@@ -6,7 +6,7 @@ const toBase64 = ( string ) =>  Buffer.from(string).toString('base64')
 
 const loadFile = ( name, callback ) => fs.readFile(name, "utf8", callback)
 
-const splitAndReturnLast = ( rawString ) => {
+const splitStringAndReturnLast = ( rawString ) => {
     const stringSplitted = rawString.split('-')
     const lastIndex = stringSplitted.length - 1
     return stringSplitted[ lastIndex ].trim()
@@ -15,5 +15,5 @@ const splitAndReturnLast = ( rawString ) => {
 module.exports = {
     toBase64,
     loadFile,
-    splitAndReturnLast
+    splitStringAndReturnLast
 }

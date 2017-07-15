@@ -1,7 +1,7 @@
 'use strict'
 
 const { getDifficulty, isClassified } = require('./pontuations')
-const formatDificultyString = require('./utils').splitAndReturnLast
+const formatDificultyString = require('./utils').splitStringAndReturnLast
 const { canClassify } = require('./filters')
 
 const getIssueKey = ( element ) => element.key
