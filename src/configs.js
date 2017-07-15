@@ -18,7 +18,7 @@ const goal = ( user='someone.dsn.cir' ) =>
     /.*dsn.*/.test(user) ? parseInt(config.goalDSN) : parseInt(config.goalQLD)
 
 const pointsMinute = ( user='someone.dsn.cir' ) => 
-    /.*dsn.*/.test(user) ? (parseInt(config.pointsHourDSN) / 60) : (parseInt(config.pointsHourQLD) / 60)
+    /.*dsn.*/.test(user) ? (parseInt(config.pointsHourDSN)) : (parseInt(config.pointsHourQLD))
 
 module.exports = {
     auth,

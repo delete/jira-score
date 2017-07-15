@@ -14,6 +14,8 @@ const sumPontuation = ( issues ) =>
 const sumTime = ( issues, type ) => 
     issues.reduce( (total, issue ) => issue.type === type ? total + issue.time : total, 0 )
 
+const minutesToPoints = ( minutes, pointsPerHour ) => Math.round( ( minutes * (pointsPerHour / 60) ) )
+const pointsPercentage = ( goal, points ) => ( (points * 100) / goal ).toFixed(2);
 const hasScore = ( issue ) => issue.pontuation > 0 && isClassified(issue.type)
 const scoredIssues = ( issues ) => issues.filter( issue => hasScore( issue ) )
 
@@ -23,5 +25,7 @@ module.exports = {
     sumPontuation,
     sumTime,
     hasScore,
-    scoredIssues
+    scoredIssues,
+    minutesToPoints,
+    pointsPercentage
 }
