@@ -10,7 +10,7 @@ const GOOD_MORNING = [
 
 const WELCOME = [
     'Ai sim!',
-    'Agora você é um malcriado!'
+    'Uhul, agora você também é um malcriado!'
 ]
 
 const USER_FOUND = [
@@ -32,6 +32,21 @@ const ERROR_JIRA = [
     'Maẽẽẽẽẽ, foi o Jira!'
 ]
 
+// SCORE MESSAGES
+const ONE_THIRD = [
+    'Trabalha não?! É bom começar.',
+    'Que que ta pegando? Vamos lá, vocẽ consegue!'
+]
+
+const LESS_HALF = [
+    'Anda logo com isso ae, ta quase na metade!'
+]
+
+const MORE_HALF = [
+    'Tu ta o bichão memo, em?!',
+    'Metade já foi. BORA TIMEEE!!!'
+]
+
 module.exports = {
     DONT_GET_IT,
     ERROR_BOT,
@@ -39,5 +54,8 @@ module.exports = {
     GOOD_MORNING,
     USER_FOUND,
     WELCOME,
-    USER_NEEDED
+    USER_NEEDED,
+    ONE_THIRD,
+    LESS_HALF,
+    MORE_HALF
 }

@@ -11,6 +11,9 @@ const messages = ( t ) => {
         USER_FOUND: () => random( types[t] ),
         WELCOME: () => random( types[t] ),
         USER_NEEDED: () => random( types[t] ),
+        ONE_THIRD: () => random( types[t] ),
+        LESS_HALF: () => random( types[t] ),
+        MORE_HALF: () => random( types[t] ),
         default: () => new Error('Message not found')
     }
      return (ts[ t ] || ts[ 'default' ])()
