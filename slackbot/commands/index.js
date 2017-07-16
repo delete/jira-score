@@ -9,13 +9,13 @@ const parser = require('../../src/parser')
 const score = require('./score')
 const issues = require('./issues')
 
-const botErrorMessage = response => {
-    console.log( `Command BOT error: ${response}` )
+const botErrorMessage = ( msg ) => ( response ) => {
+    console.log( `Command ${msg} error: ${response}` )
     return messages('ERROR_BOT')
 }
 
-const jiraErrorMessage = response => {
-    console.log( `Command JIRA error: ${response}` )
+const jiraErrorMessage = ( response ) => {
+    console.log( `Command loadIssues error: ${response}` )
     return messages('ERROR_JIRA')
 }
 
@@ -35,13 +35,13 @@ const loadIssues = ( user ) => {
 const issuesCommand = ( user ) => {
     return loadIssues( user )
         .then( data => issues( data, user ) )
-        .catch( botErrorMessage ) 
+        .catch( botErrorMessage( 'issues' ) ) 
 }
 
 const scoreCommand = ( user ) => {
     return loadIssues( user )
         .then( data => score( data, user ) )
-        .catch( botErrorMessage ) 
+        .catch( botErrorMessage( 'score' ) ) 
 }
 
 module.exports = {
