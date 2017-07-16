@@ -24,7 +24,10 @@ const loadIssues = ( user ) => {
 
     return get(filterUrl, options)
         .then( response => parser(response.data) )
-        .catch( response => `Error: ${response.message}` )
+        .catch( response => { 
+            console.log( `Command loadIssues error: ${response.message}`  )
+            return 'Maẽẽẽẽẽ, foi o Jira!'
+        })
 }
 
 const score = ( user ) => {
@@ -41,11 +44,12 @@ const score = ( user ) => {
             const totalPontuation = issuesPontuation + timeInPoints
             const actualPercentage = pointsPercentage(objective, totalPontuation)
             const restPercentage = ( 100 - actualPercentage ).toFixed(2)
-            
+
             const moreThanHalf = 'Tu ta o bichão memo, em?!'
             const lessThanHalf = 'Anda logo com isso ae!'
             const lessThanOneThird = 'Trabalha não?! É bom começar.'
-            const trollMessage = () => actualPercentage < 33 ? lessThanOneThird : actualPercentage < 50 ? lessThanHalf : moreThanHalf
+            const trollMessage = () => 
+                actualPercentage < 33 ? lessThanOneThird : actualPercentage < 50 ? lessThanHalf : moreThanHalf
             
             const response = [
                 `Você fez *${totalTime} minutos* de atendimento, o que da *${timeInPoints}* pontos`,
@@ -56,7 +60,10 @@ const score = ( user ) => {
             
             return response.join('\n')
         })
-        .catch( response => `Error: ${response.message}` )
+        .catch( response => {
+            console.error( `Command score error: ${response}` )
+            return 'Tô a fim de responder, não! Tente novamente...'
+        })
 }
 
 const issues = ( user ) => {
@@ -96,7 +103,10 @@ const issues = ( user ) => {
 
             return response.join('\n')
         })
-        .catch( response => `Error: ${response.message}` )   
+        .catch( response => {
+            console.log( `Command issues error: ${response}` )  
+            return 'Me obrigue...'
+        }) 
 }
 
 module.exports = {
