@@ -25,14 +25,16 @@ module.exports = ( issues, user ) => {
     const totalTime = customServiceTime
 
     const timeInPoints = minutesToPoints( totalTime, pointsPerMinute )
-    const totalPontuation = issuesPontuation + timeInPoints
-    const actualPercentage = pointsPercentage(objective, totalPontuation)
+    const actualPercentage = pointsPercentage(objective, issuesPontuation)
     const restPercentage = ( 100 - actualPercentage ).toFixed(2)
+
+    const rest = ( objective - issuesPontuation )
+    const restToGoal = rest < 0 ? 0 : rest
    
     const response = [
         `Você fez *${totalTime} minutos* de atendimento, o que da *${timeInPoints}* pontos`,
-        `Você tem no total *${totalPontuation}* pontos e completou *${actualPercentage}%* da meta *${objective}* !`,
-        `Faltam *${objective - totalPontuation}* pontos, *${restPercentage}%* para bater a meta!`,
+        `Você tem *${issuesPontuation}* pontos e completou *${actualPercentage}%* da meta *${objective}* !`,
+        `Faltam *${restToGoal}* pontos, *${restPercentage < 0 ? 0 : restPercentage}%* para bater a meta!`,
         `\n${trollMessage( actualPercentage )}`
     ]
     
