@@ -14,6 +14,7 @@ const messages = ( t ) => {
         ONE_THIRD: () => random( types[t] ),
         LESS_HALF: () => random( types[t] ),
         MORE_HALF: () => random( types[t] ),
+        MY_SELF: () => random( types[t] ),
         default: () => new Error('Message not found')
     }
      return (ts[ t ] || ts[ 'default' ])()

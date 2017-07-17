@@ -37,12 +37,16 @@ module.exports = ( message, user ) => {
     
     const responses = {
         'Oi': () => `Eai <@${user}>!`,
+        'oi': () => `Colé <@${user}>!`,
         'pontos': () => getScore( user ),
+        'ponto': () => getScore( user ),
         'issues': () => getIssues( user ),
+        'issue': () => getIssues( user ),
         'ajuda': () => '*pontos* para pegar seus pontos e *issues* para listar as quantidades.',
         'help': () => '*pontos* para pegar seus pontos e *issues* para listar as quantidades.',
         'score': () => 'Ta tirando onda em inglês, é? Mas tenta **pontos** que funciona.',
         'pra fora': () => 'haha. Engraçadinho.',
+        'jira': () => messages('MY_SELF'),
         'default': () => messages('DONT_GET_IT')
     }
 

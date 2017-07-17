@@ -23,6 +23,12 @@ const USER_NEEDED = [
     'Cara crachá, cara crachá. Cade o login.'
 ]
 
+const MY_SELF = [
+    'Eu!',
+    'Meu nome!',
+    'Diga...'
+]
+
 const ERROR_BOT = [
     'Tô a fim de responder, não! Tente novamente...',
     'Me obrigue...'
@@ -39,12 +45,13 @@ const ONE_THIRD = [
 ]
 
 const LESS_HALF = [
-    'Anda logo com isso ae, ta quase na metade!'
+    'Anda logo com isso ae, ta quase na metade!',
+    'Já está quase na metade. BORA TIMEEE!!!'
 ]
 
 const MORE_HALF = [
     'Tu ta o bichão memo, em?!',
-    'Metade já foi. BORA TIMEEE!!!'
+    'Mais um pouco e sai do chão! Ta voando...'
 ]
 
 module.exports = {
@@ -57,5 +64,6 @@ module.exports = {
     USER_NEEDED,
     ONE_THIRD,
     LESS_HALF,
-    MORE_HALF
+    MORE_HALF,
+    MY_SELF
 }
