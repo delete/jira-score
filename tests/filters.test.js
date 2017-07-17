@@ -192,3 +192,25 @@ describe('Function: scoredIssues', () => {
         expect(result).toBe(expected)
     })
 })
+
+describe('Function: minutesToPoints', () => {
+    test('Must return 42 points for 120 minutes, 21/h ', () => {
+        const pointsPerHour = 21
+        const minutes = 120
+
+        const expected = 42
+        const result = filters.minutesToPoints( minutes, pointsPerHour )
+        expect(result).toBe(expected)
+    })
+})
+
+describe('Function: pointsPercentage', () => {
+    test('Must return 37.30 percent for 1316 points, with 3528 goal ', () => {
+        const goal = 3528
+        const points = 1316
+
+        const expected = '37.30'
+        const result = filters.pointsPercentage( goal, points )
+        expect(result).toBe(expected)
+    })
+})

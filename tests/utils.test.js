@@ -10,12 +10,12 @@ describe('Function: toBase64', () => {
     })
 })
 
-describe('Function: splitAndReturnLast', () => {
+describe('Function: splitStringAndReturnLast', () => {
     test('Must return te string after te "-" char', () => {
         const actual = '0 - Não Classificado'
         const expected = 'Não Classificado'
         
-        const result = utils.splitAndReturnLast(actual)
+        const result = utils.splitStringAndReturnLast(actual)
         expect(result).toBe(expected)
     })
 
@@ -23,7 +23,7 @@ describe('Function: splitAndReturnLast', () => {
         const actual = ''
         const expected = ''
         
-        const result = utils.splitAndReturnLast(actual)
+        const result = utils.splitStringAndReturnLast(actual)
         expect(result).toBe(expected)
     })
 })

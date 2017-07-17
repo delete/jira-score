@@ -57,8 +57,7 @@ const print = data => {
 const startDate = '2017-07-01'
 const endDate = '2017-07-31'
 
-// const filterUrl = url( startDate, endDate )
-const filterUrl = 'http://127.0.0.1:8080/issues.json'
+const filterUrl = url( startDate, endDate )
 const headers = { 'Authorization': `Basic ${auth()}` }
 const options = { headers }
 
