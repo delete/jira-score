@@ -18,7 +18,8 @@ describe('Regex patterns: goodMorning', () => {
         const runOn = subscribe( message, senderMock )
 
         const expected = 'Bom dia'
-        const result = runOn( pattern, callbackMock )
+        
+        runOn( pattern, callbackMock )
         
         expect(callbackMock).toBeCalled();
         expect(senderMock).toBeCalledWith(expected, message.channel);
@@ -40,7 +41,8 @@ describe('Regex patterns: goodMorning', () => {
         const runOn = subscribe( message, senderMock )
 
         const expected = 'Bom dia'
-        const result = runOn( pattern, callbackMock )
+        
+        runOn( pattern, callbackMock )
         
         expect(callbackMock).not.toBeCalled();
         expect(senderMock).not.toBeCalledWith(expected, message.channel);
@@ -64,7 +66,8 @@ describe('String pattern: teste', () => {
         const runOn = subscribe( message, senderMock )
 
         const expected = 'This was a test!'
-        const result = runOn( pattern, callbackMock )
+        
+        runOn( pattern, callbackMock )
         
         expect(callbackMock).toBeCalled();
         expect(senderMock).toBeCalledWith(expected, message.channel);
@@ -86,9 +89,37 @@ describe('String pattern: teste', () => {
         const runOn = subscribe( message, senderMock )
 
         const expected = 'This was a test!'
-        const result = runOn( pattern, callbackMock )
+        
+        runOn( pattern, callbackMock )
         
         expect(callbackMock).not.toBeCalled();
         expect(senderMock).not.toBeCalledWith(expected, message.channel);
+    })
+})
+
+describe('Promise callback', () => {
+    test('Must resolve when the callback is a promise"', () => {
+        const message = {
+            text: 'teste',
+            channel: 'a1a1a1'
+        }
+        const pattern = 'teste'
+        const expectedMessage = 'This was another test!'
+        
+        const senderMock = jest.fn()
+        senderMock.mockReturnValueOnce( expectedMessage )
+        
+        const callback = () => {
+            return new Promise(  resolve  => {
+                return resolve( expectedMessage )
+            })
+        }
+
+        const runOn = subscribe( message, senderMock )
+
+        runOn( pattern, callback )
+        
+        // expect(callback).toBeCalled();
+        expect( senderMock ).toBeCalledWith( expectedMessage, message.channel );
     })
 })

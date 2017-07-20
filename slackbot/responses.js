@@ -31,22 +31,22 @@ module.exports = ( message, user ) => {
         return messages('WELCOME')
     }
 
-    if (  /.*bom dia.*/i.test(message) ) {
-        return messages('GOOD_MORNING')
-    }
+    // if (  /.*bom dia.*/i.test(message) ) {
+    //     return messages('GOOD_MORNING')
+    // }
     
     const responses = {
-        'Oi': () => `Eai <@${user}>!`,
-        'oi': () => `Colé <@${user}>!`,
+        // 'Oi': () => `Eai <@${user}>!`,
+        // 'oi': () => `Colé <@${user}>!`,
         'pontos': () => getScore( user ),
         'ponto': () => getScore( user ),
         'issues': () => getIssues( user ),
         'issue': () => getIssues( user ),
-        'ajuda': () => '*pontos* para pegar seus pontos e *issues* para listar as quantidades.',
-        'help': () => '*pontos* para pegar seus pontos e *issues* para listar as quantidades.',
+        // 'ajuda': () => '*pontos* para pegar seus pontos e *issues* para listar as quantidades.',
+        // 'help': () => '*pontos* para pegar seus pontos e *issues* para listar as quantidades.',
         'score': () => 'Ta tirando onda em inglês, é? Mas tenta **pontos** que funciona.',
         'pra fora': () => 'haha. Engraçadinho.',
-        'jira': () => messages('MY_SELF'),
+        // 'jira': () => messages('MY_SELF'),
         'default': () => messages('DONT_GET_IT')
     }
 
