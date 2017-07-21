@@ -1,5 +1,5 @@
 'use strict'
-const { score, issues } = require('./commands')
+const { score, issues, goal } = require('./commands')
 const messages = require('./messages')
 const users = {}
 
@@ -17,6 +17,13 @@ const getIssues = user => {
         return messages('USER_NEEDED')
     }
     return issues( users[ user ] ).then( message => message )
+}
+
+const getGoal = user => {
+    if  ( !isLogged(user) ) {
+        return messages('USER_NEEDED')
+    }
+    return goal( users[ user ] )
 }
 
 module.exports = ( message, user ) => {
@@ -42,8 +49,9 @@ module.exports = ( message, user ) => {
         'ponto': () => getScore( user ),
         'issues': () => getIssues( user ),
         'issue': () => getIssues( user ),
-        'ajuda': () => '*pontos* para pegar seus pontos e *issues* para listar as quantidades.',
-        'help': () => '*pontos* para pegar seus pontos e *issues* para listar as quantidades.',
+        'meta': () => getGoal( user ),
+        'ajuda': () => '*pontos* para pegar seus pontos \n *issues* para listar \n *meta* para mostrar a meta diária.',
+        'help': () => '*pontos* para pegar seus pontos \n *issues* para listar \n *meta* para mostrar a meta diária.',
         'score': () => 'Ta tirando onda em inglês, é? Mas tenta **pontos** que funciona.',
         'pra fora': () => 'haha. Engraçadinho.',
         'jira': () => messages('MY_SELF'),

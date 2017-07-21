@@ -8,6 +8,7 @@ const parser = require('../../src/parser')
 // Commands
 const score = require('./score')
 const issues = require('./issues')
+const goal = require('./goal')
 
 const botErrorMessage = ( msg ) => ( response ) => {
     console.log( `Command ${msg} error: ${response}` )
@@ -44,7 +45,14 @@ const scoreCommand = ( user ) => {
         .catch( botErrorMessage( 'score' ) ) 
 }
 
+const goalCommand = ( user ) => {
+    return loadIssues( user )
+        .then( data => goal( data, user ) )
+        .catch( botErrorMessage( 'goal' ) ) 
+}
+
 module.exports = {
     score: scoreCommand,
-    issues: issuesCommand
+    issues: issuesCommand,
+    goal: goalCommand
 }
