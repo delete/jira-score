@@ -26,9 +26,12 @@ const goal = ( user='someone.dsn.cir' ) =>
 const pointsMinute = ( user='someone.dsn.cir' ) => 
     /.*dsn.*/.test(user) ? (parseInt(config.pointsHourDSN)) : (parseInt(config.pointsHourQLD))
 
+const workdays = () => parseInt(config.workdays)
+
 module.exports = {
     auth,
     url,
     goal,
-    pointsMinute
+    pointsMinute,
+    workdays
 }
