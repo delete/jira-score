@@ -93,5 +93,6 @@ module.exports = {
     MY_SELF,
     HELLO,
     HELP,
-    LOADING
+    LOADING,
+    COMPLETED
 }

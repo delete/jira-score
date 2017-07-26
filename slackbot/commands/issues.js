@@ -1,5 +1,6 @@
 const messages = require('../messages')
 const emitter = require('../eventBus')
+const { getUser } = require('../auth')
 
 const { pointsMinute } = require('../../src/configs')
 const { 
@@ -12,6 +13,7 @@ const {
 
 const issues = ( message, issues ) => {
     const user = message.user
+    const username = getUser( user )
     const nc = countIssuesByDifficulty( issues, 'Não classificado') 
     const s = countIssuesByDifficulty( issues, 'Simples')
     const vs = countIssuesByDifficulty( issues, 'Muito simples')
@@ -19,7 +21,7 @@ const issues = ( message, issues ) => {
     const h = countIssuesByDifficulty( issues, 'Difícil')
     const vh = countIssuesByDifficulty( issues, 'Muito difícil')
 
-    const pointsPerMinute = pointsMinute( user )
+    const pointsPerMinute = pointsMinute( username )
 
     const cs = countIssuesByType( issues, 'Atendimento')
     const cst = sumTime( issues, 'Atendimento' )

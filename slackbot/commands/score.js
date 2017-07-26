@@ -1,5 +1,6 @@
 const messages = require('../messages')
 const emitter = require('../eventBus')
+const { getUser } = require('../auth')
 
 const { goal, pointsMinute } = require('../../src/configs')
 const { 
@@ -11,17 +12,22 @@ const {
 
 const lessThanOneThird = ( value ) => value <= 33
 const lessThanHalf = ( value ) => value <= 50
+const lessThanHundred = ( value ) => value < 100
+const completed = ( value ) => value >= 100
 const trollMessage = ( percentage ) => 
     lessThanOneThird( percentage ) 
     ? messages('ONE_THIRD') 
     : lessThanHalf( percentage ) 
         ? messages('LESS_HALF') 
-        : messages('MORE_HALF')
+            : lessThanHundred( percentage)
+                ? messages('MORE_HALF')
+                : messages('COMPLETED')
 
 const score = (  message, issues ) => {
     const user = message.user
-    const objective = goal( user )
-    const pointsPerMinute = pointsMinute( user )
+    const username = getUser( user )
+    const objective = goal( username )
+    const pointsPerMinute = pointsMinute( username )
     
     const issuesPontuation = sumPontuation( issues )
     const customServiceTime = sumTime( issues, 'Atendimento' )
