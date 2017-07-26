@@ -38,6 +38,13 @@ const HELP = [
     '*entrar **USERNAME* para fazer login \n *pontos* para pegar seus pontos \n *issues* para listar as quantidades. \n'
 ]
 
+const LOADING = [
+    'To pensando, pera ae!!',
+    'Já vai...',
+    '1 segundo...',
+    'Cê é chato, hein?'
+]
+
 const ERROR_BOT = [
     'Tô a fim de responder, não! Tente novamente...',
     'Me obrigue...'
@@ -85,5 +92,6 @@ module.exports = {
     MORE_HALF,
     MY_SELF,
     HELLO,
-    HELP
+    HELP,
+    LOADING
 }

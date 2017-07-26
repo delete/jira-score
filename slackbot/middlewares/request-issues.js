@@ -15,6 +15,8 @@ const requestIssue = (  message, event ) => {
         loginIsNeeded( channel )
         return
     }
+
+    emitter.emit('SEND', messages('LOADING'), channel )
     
     const username = getUser( user )    
     const startDate = '2017-07-01'

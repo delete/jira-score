@@ -17,6 +17,7 @@ const messages = ( t ) => {
         MY_SELF: () => random( types[t] ),
         HELLO: () => random( types[t] ),
         HELP: () => random( types[t] ),
+        LOADING: () => random( types[t] ),
         default: () => new Error('Message not found')
     }
      return (ts[ t ] || ts[ 'default' ])()
