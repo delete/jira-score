@@ -51,7 +51,16 @@ const LESS_HALF = [
 
 const MORE_HALF = [
     'Tu ta o bichão memo, em?!',
-    'Mais um pouco e sai do chão! Ta voando...'
+    'Mais um pouco e sai do chão! Ta voando...',
+    'Mais um pouco e breja vai ta garantida!'
+]
+
+const COMPLETED = [
+    'Agora que chegou na meta, vamos dobrar ela.',
+    'A meta já acabou mas o trabalho ainda não.',
+    'Agora já pode ir ajudar oszamiguinhos.',
+    'A breja ta garantida!',
+    'Agora pode pagar o sorvetinho pros coleguinhas,'
 ]
 
 module.exports = {

@@ -47,7 +47,7 @@ const scoreCommand = ( user ) => {
 
 const goalCommand = ( user ) => {
     return loadIssues( user )
-        .then( data => goal( data, user ) )
+        .then( data => goal( data, user, 7 ) )
         .catch( botErrorMessage( 'goal' ) ) 
 }
 
