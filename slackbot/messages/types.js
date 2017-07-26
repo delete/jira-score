@@ -29,6 +29,15 @@ const MY_SELF = [
     'Diga...'
 ]
 
+const HELLO = [
+    ( user ) => `Eai <@${user}>!`,
+    ( user ) => `Colé <@${user}>!`
+]
+
+const HELP = [
+    '*pontos* para pegar seus pontos e *issues* para listar as quantidades.'
+]
+
 const ERROR_BOT = [
     'Tô a fim de responder, não! Tente novamente...',
     'Me obrigue...'
@@ -74,5 +83,7 @@ module.exports = {
     ONE_THIRD,
     LESS_HALF,
     MORE_HALF,
-    MY_SELF
+    MY_SELF,
+    HELLO,
+    HELP
 }
