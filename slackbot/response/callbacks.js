@@ -1,17 +1,17 @@
-const messages = require('../messages')
+const emitter = require('../eventBus')
 
-const goodMorning = () => messages('GOOD_MORNING')
-const help = () => messages('HELP')
-const mySelf = () => messages('MY_SELF')
-
-const hello = ( user ) => {
-    const sayHello = messages('HELLO')
-    return sayHello( user )
-}
+const goodMorning = ( message ) => emitter.emit( 'GOOD_MORNING' , message )
+const hello = ( message ) => emitter.emit( 'HELLO', message )
+const help = ( message ) => emitter.emit( 'HELP', message )
+const mySelf = ( message ) => emitter.emit( 'MY_SELF', message )
+const requestIssues = ( message, event ) => emitter.emit( 'REQUEST_ISSUES', message, event )
+const login = ( message ) => emitter.emit( 'LOGIN', message )
 
 module.exports = {
     goodMorning,
     hello,
     help,
-    mySelf
+    mySelf,
+    requestIssues,
+    login
 }

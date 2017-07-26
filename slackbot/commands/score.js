@@ -1,5 +1,7 @@
-const { goal, pointsMinute } = require('../../src/configs')
 const messages = require('../messages')
+const emitter = require('../eventBus')
+
+const { goal, pointsMinute } = require('../../src/configs')
 const { 
     sumPontuation,
     sumTime,
@@ -16,7 +18,8 @@ const trollMessage = ( percentage ) =>
         ? messages('LESS_HALF') 
         : messages('MORE_HALF')
 
-module.exports = ( issues, user ) => {
+const score = (  message, issues ) => {
+    const user = message.user
     const objective = goal( user )
     const pointsPerMinute = pointsMinute( user )
     
@@ -36,7 +39,10 @@ module.exports = ( issues, user ) => {
         `Você tem *${issuesPontuation}* pontos e completou *${actualPercentage}%* da meta *${objective}* !`,
         `Faltam *${restToGoal}* pontos, *${restPercentage < 0 ? 0 : restPercentage}%* para bater a meta!`,
         `\n${trollMessage( actualPercentage )}`
-    ]
+    ].join('\n')
     
-    return response.join('\n')
+    emitter.emit('SEND', response, message.channel )
 }
+
+emitter.on( 'SCORE', score )
+console.log('on SCORE')
