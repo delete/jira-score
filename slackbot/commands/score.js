@@ -49,6 +49,5 @@ const score = (  message, issues ) => {
     
     emitter.emit('SEND', response, message.channel )
 }
-
-emitter.on( 'SCORE', score )
 console.log('on SCORE')
+module.exports = score

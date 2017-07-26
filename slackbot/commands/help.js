@@ -1,8 +1,7 @@
 const messages = require('../messages')
-const emitter = require('../eventBus');
+const emitter = require('../eventBus')
 
-emitter.on(
-    'HELP', 
-    message => emitter.emit('SEND', messages('HELP'), message.channel )
-)
+const help = message => emitter.emit('SEND', messages('HELP'), message.channel )
+
 console.log('on HELP')
+module.exports = help

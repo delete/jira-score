@@ -46,5 +46,5 @@ const issues = ( message, issues ) => {
     emitter.emit('SEND', response, message.channel )
 }
 
-emitter.on( 'ISSUES', issues )
 console.log('on ISSUES')
+module.exports = issues

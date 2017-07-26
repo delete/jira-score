@@ -28,5 +28,5 @@ const goal = ( message, issues ) => {
     emitter.emit('SEND', response, channel )
 }
 
-emitter.on( 'GOAL', goal )
 console.log('on GOAL')
+module.exports = goal
