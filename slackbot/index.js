@@ -10,7 +10,8 @@ const {
     MY_SELF,
     POINTS,
     ISSUES,
-    LOGIN
+    LOGIN,
+    GOAL
 } = require('./response').patterns
 const { 
     goodMorning,
@@ -51,6 +52,12 @@ rtm.on(RTM_EVENTS.MESSAGE, message => {
     const event = 'ISSUES'
     const runOn = subscribe({ message, event })
     runOn( ISSUES, requestIssues )
+})
+
+rtm.on(RTM_EVENTS.MESSAGE, message => {
+    const event = 'GOAL'
+    const runOn = subscribe({ message, event })
+    runOn( GOAL, requestIssues )
 })
 
 rtm.start()

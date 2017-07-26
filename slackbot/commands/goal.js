@@ -1,9 +1,16 @@
-const { goal, workdays } = require('../../src/configs')
+const messages = require('../messages')
+const emitter = require('../eventBus')
+const { getUser } = require('../auth')
+
+const { goal: myGoal, workdays } = require('../../src/configs')
 const { getWorkingDays } = require('../../src/utils')
 const { sumPontuation } = require('../../src/filters')
 
-module.exports = ( issues, user, month ) => {
-    const objective = goal( user )
+const goal = ( message, issues ) => {
+    const { user, channel } = message
+    const month = 7
+    const username = getUser( user )
+    const objective = myGoal( username )
     const pointsPerDay = Math.round( objective / workdays() )
     
     const currentDate = new Date()
@@ -16,7 +23,10 @@ module.exports = ( issues, user, month ) => {
     const response = [
         `A pontuação diária desejada é de *${pointsPerDay}/dia*`,
         `Já passou *${workingDays} dias* e a sua pontuação diária está sendo de *${mypointsPerDay}/dia*.`
-    ]
+    ].join('\n')
     
-    return response.join('\n')
+    emitter.emit('SEND', response, channel )
 }
+
+emitter.on( 'GOAL', goal )
+console.log('on GOAL')

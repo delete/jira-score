@@ -35,7 +35,7 @@ const HELLO = [
 ]
 
 const HELP = [
-    '*pontos* para pegar seus pontos e *issues* para listar as quantidades.'
+    '*entrar **USERNAME* para fazer login \n *pontos* para pegar seus pontos \n *issues* para listar as quantidades. \n'
 ]
 
 const ERROR_BOT = [

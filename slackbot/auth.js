@@ -8,6 +8,7 @@ const sendMessage = ( message, channel ) => emitter.emit('SEND', message, channe
 const userFound = ( channel ) => sendMessage( messages('USER_FOUND'),  channel)
 const welcome = ( channel ) => sendMessage( messages('WELCOME'),  channel)
 const getUsername = string => string.split(' ')[1]
+const getUser = ( userId ) => users[ userId ]
 
 const login = ( message ) => {
     const { text, channel, user} = message 
@@ -26,5 +27,6 @@ const login = ( message ) => {
 
 module.exports = {
     isLogged,
-    login
+    login,
+    getUser
 }

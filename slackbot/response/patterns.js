@@ -6,6 +6,7 @@ const MY_SELF = /.*(jira|malcriado).*/
 const POINTS = /pontos|ponto|score/i
 const ISSUES = /issues|issue|tarefas/i
 const LOGIN = /^entrar .*(dsn|qld).cir$/i
+const GOAL = /^meta/i
 
 module.exports = {
     GOOD_MORNING,
@@ -15,5 +16,6 @@ module.exports = {
     MY_SELF,
     POINTS,
     ISSUES,
-    LOGIN
+    LOGIN,
+    GOAL
 }

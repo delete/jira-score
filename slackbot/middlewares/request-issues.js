@@ -1,6 +1,6 @@
 const messages = require('../messages')
 const emitter = require('../eventBus')
-const { isLogged, login } = require('../auth')
+const { isLogged, login, getUser } = require('../auth')
 
 const get = require('../../src/request')
 const { auth, url } = require('../../src/configs')
@@ -16,10 +16,11 @@ const requestIssue = (  message, event ) => {
         return
     }
     
+    const username = getUser( user )    
     const startDate = '2017-07-01'
     const endDate = '2017-07-31'
 
-    const filterUrl = url( startDate, endDate, user )
+    const filterUrl = url( startDate, endDate, username )
     const headers = { 'Authorization': `Basic ${auth()}` }
     const options = { headers }
 
