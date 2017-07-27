@@ -13,7 +13,6 @@ const {
 const lessThanOneThird = ( value ) => value <= 33
 const lessThanHalf = ( value ) => value <= 50
 const lessThanHundred = ( value ) => value < 100
-const completed = ( value ) => value >= 100
 const trollMessage = ( percentage ) => 
     lessThanOneThird( percentage ) 
     ? messages('ONE_THIRD') 
