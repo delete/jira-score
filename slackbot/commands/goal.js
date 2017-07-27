@@ -7,6 +7,7 @@ const { getWorkingDays } = require('../../src/utils')
 const { sumPontuation } = require('../../src/filters')
 
 const goal = ( message, issues ) => {
+    // Must be improved, passing the month as parameter to goal function
     const { user, channel } = message
     const month = 7
     const username = getUser( user )

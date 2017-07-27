@@ -17,14 +17,14 @@ describe('Score command Must emit an event and data object', () => {
         })
 
         it('should emit an "SEND" wit some message and channel', ( ) => {
+            // Must be improved, passing the month as parameter to goal function
             const message = {
                 text: 'help me',
                 channel: 'aaa',
                 user: '1234'
             }
             const expectedResponse = [
-                /.*\*168\/dia.*/,
-                /.*\*31\/dia.*/
+                /.*\*168\/dia.*/
             ]
 
             const eventSpy = jest.fn()
