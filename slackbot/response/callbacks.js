@@ -6,6 +6,7 @@ const help = ( message ) => emitter.emit( 'HELP', message )
 const mySelf = ( message ) => emitter.emit( 'MY_SELF', message )
 const requestIssues = ( message, event ) => emitter.emit( 'REQUEST_ISSUES', message, event )
 const login = ( message ) => emitter.emit( 'LOGIN', message )
+const top10 = ( message ) => emitter.emit( 'TOP10', message )
 
 module.exports = {
     goodMorning,
@@ -13,5 +14,6 @@ module.exports = {
     help,
     mySelf,
     requestIssues,
-    login
+    login,
+    top10
 }
