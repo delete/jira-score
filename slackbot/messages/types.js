@@ -41,8 +41,9 @@ const HELP = [
 const LOADING = [
     'To pensando, pera ae!!',
     'Já vai...',
-    '1 segundo...',
-    'Cê é chato, hein?'
+    'Ta com pressa? Passa por cima!',
+    'Cê é chato, hein?',
+    'Já pensou em deixar isso anotado?'
 ]
 
 const ERROR_BOT = [

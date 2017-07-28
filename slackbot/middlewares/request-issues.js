@@ -8,7 +8,7 @@ const parser = require('../../src/parser')
 
 const loginIsNeeded = ( channel ) => emitter.emit('SEND', messages('USER_NEEDED'), channel )
 
-const requestIssue = (  message, event ) => {
+const requestIssue = (  message, event, loading = true ) => {
     const { user , channel} = message
 
     if ( !isLogged( user ) ) {
@@ -16,9 +16,9 @@ const requestIssue = (  message, event ) => {
         return
     }
 
-    emitter.emit('SEND', messages('LOADING'), channel )
+    if ( loading ) emitter.emit('SEND', messages('LOADING'), channel )
     
-    const username = getUser( user )    
+    const username = getUser( user ) 
     const startDate = '2017-07-01'
     const endDate = '2017-07-31'
 
