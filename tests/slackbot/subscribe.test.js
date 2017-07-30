@@ -1,5 +1,5 @@
-const subscribe = require('../subscribe')
-const patterns  = require('../response/patterns')
+const subscribe = require('../../slackbot/subscribe')
+const patterns  = require('../../slackbot/response/patterns')
 
 describe('Regex patterns: goodMorning', () => {
     test('Must run a callback when a right pattern string is sent"', () => {

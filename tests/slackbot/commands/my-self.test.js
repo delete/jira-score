@@ -1,7 +1,7 @@
-const emitter = require('../../eventBus')
-const { MY_SELF } = require('../../messages/types')
+const emitter = require('../../../slackbot/eventBus')
+const { MY_SELF } = require('../../../slackbot/messages/types')
 
-const mySelf = require('../../commands/my-self')
+const mySelf = require('../../../slackbot/commands/my-self')
 
 describe('MySelf command Must emit an event and data object', () => {
   

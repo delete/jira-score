@@ -1,5 +1,5 @@
-const types = require('../messages/types')
-const messages = require('../messages')
+const types = require('../../slackbot/messages/types')
+const messages = require('../../slackbot/messages')
 
 describe('Must return a message containing in the list', () => {
   

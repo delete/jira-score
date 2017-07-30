@@ -1,7 +1,7 @@
-const emitter = require('../../eventBus')
-const mockIssues = require('../fixtures/issues')
-const { ONE_THIRD, LESS_HALF, MORE_HALF, COMPLETED } = require('../../messages/types')
-const score = require('../../commands/score')
+const emitter = require('../../../slackbot/eventBus')
+const mockIssues = require('../../fixtures/issues')
+const { ONE_THIRD, LESS_HALF, MORE_HALF, COMPLETED } = require('../../../slackbot/messages/types')
+const score = require('../../../slackbot/commands/score')
 
 describe('Score command Must emit an event and data object', () => {
   

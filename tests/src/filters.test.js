@@ -1,4 +1,4 @@
-const filters = require('../src/filters')
+const filters = require('../../src/filters')
 
 const issues = [
     {

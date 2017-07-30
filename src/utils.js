@@ -5,6 +5,7 @@ const fs = require('fs')
 const toBase64 = ( string ) =>  Buffer.from(string).toString('base64')
 
 const loadFile = ( name, callback ) => fs.readFile(name, "utf8", callback)
+const loadFileSync = ( name ) => fs.readFileSync(name, "utf8")
 
 const splitStringAndReturnLast = ( rawString ) => {
     const stringSplitted = rawString.split('-')
@@ -32,6 +33,7 @@ const getWorkingDays = ( startDate, endDate ) => {
 module.exports = {
     toBase64,
     loadFile,
+    loadFileSync,
     splitStringAndReturnLast,
     getWorkingDays
 }

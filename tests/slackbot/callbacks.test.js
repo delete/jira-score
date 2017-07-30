@@ -1,6 +1,6 @@
-const emitter = require('../eventBus')
+const emitter = require('../../slackbot/eventBus')
 
-const { callbacks } = require('../response')
+const { callbacks } = require('../../slackbot/response')
 
 describe('Must emit an event and data object', () => {
   

@@ -1,37 +1,35 @@
-const emitter = require('../../eventBus')
-const { HELP } = require('../../messages/types')
+const emitter = require('../../../slackbot/eventBus')
+const { GOOD_MORNING } = require('../../../slackbot/messages/types')
 
-const help = require('../../commands/help')
+const goodMorning = require('../../../slackbot/commands/good-morning')
 
-describe('Help command Must emit an event and data object', () => {
+describe('Must emit an event and data object', () => {
   
-    describe('help command', () => {  
+    describe('Good morning callback', () => {  
         it('should emit an "SEND"', ( ) => {
             const eventSpy = jest.fn()
             emitter.on('SEND', eventSpy )
 
-            help( {} )
+            goodMorning( {} )
 
             expect(eventSpy).toBeCalled()
         })
 
         it('should emit an "SEND" wit some message and data', ( ) => {
             const data = {
-                text: 'help me',
-                channel: 'aaa',
-                user: '1234'
+                text: 'good morning',
+                channel: 'aaa'
             }
             const eventSpy = jest.fn()
             emitter.on('SEND', eventSpy )
 
-            help( data )
+            goodMorning( data )
 
             expect(eventSpy).toBeCalled()
 
             // Both params are passing as only one, the first
             const [ actualMessage, channel ] = eventSpy.mock.calls[0]
-
-            expect( HELP ).toContain( actualMessage );
+            expect( GOOD_MORNING ).toContain( actualMessage );
             expect( channel ).toBe( data.channel );
         })
     })

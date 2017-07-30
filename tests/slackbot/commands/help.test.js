@@ -1,40 +1,37 @@
-const emitter = require('../../eventBus')
-const { HELLO } = require('../../messages/types')
+const emitter = require('../../../slackbot/eventBus')
+const { HELP } = require('../../../slackbot/messages/types')
 
-const hello = require('../../commands/hello')
+const help = require('../../../slackbot/commands/help')
 
-describe('Hello command Must emit an event and data object', () => {
+describe('Help command Must emit an event and data object', () => {
   
-    describe('Hello command', () => {  
+    describe('help command', () => {  
         it('should emit an "SEND"', ( ) => {
             const eventSpy = jest.fn()
             emitter.on('SEND', eventSpy )
 
-            hello( {} )
+            help( {} )
 
             expect(eventSpy).toBeCalled()
         })
 
         it('should emit an "SEND" wit some message and data', ( ) => {
             const data = {
-                text: 'olar',
+                text: 'help me',
                 channel: 'aaa',
                 user: '1234'
             }
             const eventSpy = jest.fn()
             emitter.on('SEND', eventSpy )
 
-            hello( data )
+            help( data )
 
             expect(eventSpy).toBeCalled()
 
             // Both params are passing as only one, the first
             const [ actualMessage, channel ] = eventSpy.mock.calls[0]
 
-            // Mock mensagens with the same user as data object
-            const helloMessages = HELLO.map( (h) => h( data.user ) )
-
-            expect( helloMessages ).toContain( actualMessage );
+            expect( HELP ).toContain( actualMessage );
             expect( channel ).toBe( data.channel );
         })
     })

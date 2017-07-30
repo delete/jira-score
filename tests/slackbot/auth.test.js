@@ -1,6 +1,6 @@
-const emitter = require('../eventBus')
-const { WELCOME, USER_FOUND } = require('../messages/types')
-const { login, logout, isLogged, getUser } = require('../auth')
+const emitter = require('../../slackbot/eventBus')
+const { WELCOME, USER_FOUND } = require('../../slackbot/messages/types')
+const { login, logout, isLogged, getUser } = require('../../slackbot/auth')
 
 const message = {
     text: 'entrar fellipe.user',

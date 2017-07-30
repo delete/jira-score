@@ -1,5 +1,5 @@
-const parser = require('../src/parser')
-const { loadFile } = require('../src/utils')
+const parser = require('../../src/parser')
+const { loadFile } = require('../../src/utils')
 const { 
     countIssuesByType,
     countIssuesByDifficulty,
@@ -7,9 +7,9 @@ const {
     sumTime,
     hasScore,
     scoredIssues
-} = require('../src/filters')
+} = require('../../src/filters')
 
-const MOCK_FILE = './tests/issues.json'
+const MOCK_FILE = './tests/fixtures/issues.json'
 
 test('Scored issues must be 10', done => {
 
