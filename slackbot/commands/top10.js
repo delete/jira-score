@@ -1,10 +1,10 @@
 const messages = require('../messages')
 const emitter = require('../eventBus')
 const { getUser } = require('../auth')
-const { sumPontuation } = require('../../src/filters')
+const { sumPontuation, minutesToPoints, sumTime } = require('../../src/filters')
 
 const get = require('../../src/request')
-const { auth, url } = require('../../src/configs')
+const { auth, url, pointsMinute } = require('../../src/configs')
 const parser = require('../../src/parser')
 const { goal, dsn, qld } = require('../../src/configs')
 
@@ -28,17 +28,18 @@ const jiraErrorMessage = ( response ) => {
 
 const reachedGoal = ( points, user ) => points > goal( user ) ? ':sunglasses:' :  ''
 const sortByPoints = ( people ) => [...people].sort( (a,b) => b.points - a.points );
+const printPerson = ( person, index ) => `${index}º - ${person.username}  ${reachedGoal( person.points, person.username )}`
 
 const mountResponse = ( people, channel ) => {
     const peopleWithPoints = people.map( person =>  {
         return {
             username: person.username,
-            points: sumPontuation( person.issues )
+            points: sumPontuation( person.issues ) + minutesToPoints( sumTime( person.issues, 'Atendimento' ), pointsMinute( person.username ) )
         }
     })
     const peopleTop = sortByPoints( peopleWithPoints)
     const topTen = peopleTop
-        .map( (person, index) => `${index}º - ${person.username}  ${reachedGoal( person.points, person.username )}`)
+        .map( printPerson )
         .slice(0, 10)
         .join('\n')
 
