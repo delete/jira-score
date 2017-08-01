@@ -1,9 +1,5 @@
-process.env.ENV_DEV = 'false'
-
 const { loadFile } = require('../../src/utils')
 const ENV_FILE_DEV = './tests/fixtures/env_test'
-
-const configs = require('../../src/configs')
 
 
 describe('Test configs file', () => {
@@ -33,12 +29,3 @@ describe('Test configs file', () => {
     })
 })
 
-describe('Test with ENV_DEV variable', () => {
-
-    test('isDev method must return false', () => {
-        const actual = configs.isDev
-        const expected = false
-        expect( actual ).toBe( expected)
-    })
-
-})
