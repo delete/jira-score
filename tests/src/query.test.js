@@ -1,4 +1,4 @@
-const makeQuery = require('../src/query')
+const makeQuery = require('../../src/query')
 
 describe('Function: fast query', () => {
     test('Must return the hole query with the right inputs"', () => {

@@ -1,0 +1,10 @@
+{
+    "login": "fellipe.user",
+    "pass": "123213",
+    "domain": "http://127.0.0.1:8080/issues.json",
+    "goalDSN": "3528",
+    "goalQLD": "2500",
+    "pointsHourDSN": "21",
+    "pointsHourQLD": "16",
+    "workdays": "21"
+}

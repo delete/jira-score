@@ -1,4 +1,4 @@
-const utils = require('../src/utils')
+const utils = require('../../src/utils')
 
 describe('Function: toBase64', () => {
     test('base4 of admin:pass must be YWRtaW46cGFzcw==', () => {

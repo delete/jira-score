@@ -1,4 +1,4 @@
-const filters = require('../src/filters')
+const filters = require('../../src/filters')
 
 const issues = [
     {
@@ -105,6 +105,13 @@ describe('Function: countIssueByDifficulty', () => {
         expect(result).toBe(expected)
     })
 
+    test('Must return 0 issues "Média"', () => {
+        const expected = 0
+  
+        const result = filters.countIssuesByDifficulty( issues, 'Média' )
+        expect(result).toBe(expected)
+    })
+
     test('Must return 1 issues "Difícil"', () => {
         const expected = 1
   
@@ -121,7 +128,7 @@ describe('Function: countIssueByDifficulty', () => {
 })
 
 describe('Function: sumPontuation', () => {
-    test('Must return 135 points', () => {
+    test('Must return 560 points', () => {
         const expected = 560
   
         const result = filters.sumPontuation( issues )

@@ -1,7 +1,7 @@
-const parser = require('../src/parser')
-const { loadFile } = require('../src/utils')
+const parser = require('../../src/parser')
+const { loadFile } = require('../../src/utils')
 
-const MOCK_FILE = './tests/issues.json'
+const MOCK_FILE = './tests/fixtures/issues.json'
 
 
 test('Total of issues before parser method must be 11', done => {

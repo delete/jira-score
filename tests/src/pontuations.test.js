@@ -1,4 +1,4 @@
-const { getDifficulty, isClassified } = require('../src/pontuations')
+const { getDifficulty, isClassified } = require('../../src/pontuations')
 
 describe('Function: getDifficulty', () => {
     describe('Issue: Very simple', () => {

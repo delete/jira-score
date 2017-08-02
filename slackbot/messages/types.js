@@ -29,6 +29,23 @@ const MY_SELF = [
     'Diga...'
 ]
 
+const HELLO = [
+    ( user ) => `Eai <@${user}>!`,
+    ( user ) => `Colé <@${user}>!`
+]
+
+const HELP = [
+    '*entrar **USERNAME* para fazer login \n *pontos* para pegar seus pontos \n *issues* para listar as quantidades. \n'
+]
+
+const LOADING = [
+    'To pensando, pera ae!!',
+    'Já vai...',
+    'Ta com pressa? Passa por cima!',
+    'Cê é chato, hein?',
+    'Já pensou em deixar isso anotado?'
+]
+
 const ERROR_BOT = [
     'Tô a fim de responder, não! Tente novamente...',
     'Me obrigue...'
@@ -51,7 +68,16 @@ const LESS_HALF = [
 
 const MORE_HALF = [
     'Tu ta o bichão memo, em?!',
-    'Mais um pouco e sai do chão! Ta voando...'
+    'Mais um pouco e sai do chão! Ta voando...',
+    'Mais um pouco e breja vai ta garantida!'
+]
+
+const COMPLETED = [
+    'Agora que chegou na meta, vamos dobrar ela.',
+    'A meta já acabou mas o trabalho ainda não.',
+    'Agora já pode ir ajudar oszamiguinhos.',
+    'A breja ta garantida!',
+    'Agora pode pagar o sorvetinho pros coleguinhas,'
 ]
 
 module.exports = {
@@ -65,5 +91,9 @@ module.exports = {
     ONE_THIRD,
     LESS_HALF,
     MORE_HALF,
-    MY_SELF
+    MY_SELF,
+    HELLO,
+    HELP,
+    LOADING,
+    COMPLETED
 }
