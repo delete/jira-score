@@ -9,8 +9,8 @@ const parser = require('../../src/parser')
 const { goal, dsn, qld } = require('../../src/configs')
 
 const requestIssue = (  username ) => {
-    const startDate = '2017-07-01'
-    const endDate = '2017-07-31'
+    const startDate = '2017-08-01'
+    const endDate = '2017-08-31'
 
     const filterUrl = url( startDate, endDate, username )
     const headers = { 'Authorization': `Basic ${auth()}` }
