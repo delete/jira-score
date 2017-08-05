@@ -2,17 +2,20 @@
 
 const get = require('./src/request')
 const { loadFile } = require('./src/utils')
-const { auth, url, goal } = require('./src/configs')
+const { auth, url, goal, pointsMinute } = require('./src/configs')
 const parser = require('./src/parser')
 const { 
     countIssuesByType,
     countIssuesByDifficulty,
     sumPontuation,
     sumTime,
-    scoredIssues
+    scoredIssues,
+    minutesToPoints
 } = require('./src/filters')
 
 const printIssue = issue => console.log( `${issue.key} -> ${issue.difficulty} -> ${issue.pontuation}` )
+
+const USER = ''
 
 const print = data => {
     const issues = parser(data)
@@ -35,7 +38,7 @@ const print = data => {
     const pontuation = sumPontuation( issues )
     const scored = scoredIssues( issues )
 
-    const percentage = (pontuation * 100) / goal();
+    const percentage = (pontuation * 100) / goal( USER );
 
     console.log(`\n\nTotal Not Classified Issues: ${nc}`)
     console.log(`Total Very Simple Issues: ${vs}`)
@@ -46,18 +49,18 @@ const print = data => {
     console.log(`\nTotal Customer Service: ${cs}`)
     console.log(`Total Customer Service Time: ${cst} minutes`)
     console.log(`\nTotal Tasks: ${tasks}`)
-    console.log(`Total Tasks Time: ${taskstime} minutes`)
+    console.log(`Total Tasks Time: ${taskstime} minutes -> ${minutesToPoints( taskstime, pointsMinute( USER ) )}`)
     console.log(`\nTotal issues: ${issues.length}`)
     console.log(`Scored issues: ${scored.length}`)
     console.log(`Total pontuation: ${pontuation} -> ${percentage.toFixed(2)}`)
-    console.log(`Total to complete the goal: ${goal() - pontuation} -> ${100 - percentage.toFixed(2)}`)
-    console.log(`Goal: ${goal()}`)
+    console.log(`Total to complete the goal: ${goal( USER ) - pontuation} -> ${100 - percentage.toFixed(2)}`)
+    console.log(`Goal: ${goal( USER )}`)
 }
 
-const startDate = '2017-07-01'
-const endDate = '2017-07-31'
+const startDate = '2017-08-01'
+const endDate = '2017-08-31'
 
-const filterUrl = url( startDate, endDate )
+const filterUrl = url( startDate, endDate, USER )
 const headers = { 'Authorization': `Basic ${auth()}` }
 const options = { headers }
 

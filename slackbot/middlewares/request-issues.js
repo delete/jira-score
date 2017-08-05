@@ -19,8 +19,8 @@ const requestIssue = (  message, event, loading = true ) => {
     if ( loading ) emitter.emit('SEND', messages('LOADING'), channel )
     
     const username = getUser( user ) 
-    const startDate = '2017-07-01'
-    const endDate = '2017-07-31'
+    const startDate = '2017-08-01'
+    const endDate = '2017-08-31'
 
     const filterUrl = url( startDate, endDate, username )
     const headers = { 'Authorization': `Basic ${auth()}` }
