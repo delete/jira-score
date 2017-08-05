@@ -77,7 +77,7 @@ test('Issues must have all fields right', done => {
 
 })
 
-test('Total customer service issues must be 1', done => {
+test('Total customer service issues must be 2', done => {
 
     loadFile(MOCK_FILE, (err, data) => {
         if (err) throw err
@@ -86,7 +86,7 @@ test('Total customer service issues must be 1', done => {
         const issues = parser(dataObj)
         
         const actual = countIssuesByType( issues, 'Atendimento')
-        const expected = 1
+        const expected = 2
 
         expect(actual).toBe(expected)
 
@@ -95,7 +95,7 @@ test('Total customer service issues must be 1', done => {
 
 })
 
-test('Total customer service issues time must be 60 minutes', done => {
+test('Total customer service issues time must be 180 minutes', done => {
 
     loadFile(MOCK_FILE, (err, data) => {
         if (err) throw err
@@ -104,7 +104,7 @@ test('Total customer service issues time must be 60 minutes', done => {
         const issues = parser(dataObj)
 
         const actual = sumTime( issues, 'Atendimento' )
-        const expected = 60
+        const expected = 180
 
         expect(actual).toBe(expected)
 

@@ -9,7 +9,7 @@ const { sumPontuation } = require('../../src/filters')
 const goal = ( message, issues ) => {
     // Must be improved, passing the month as parameter to goal function
     const { user, channel } = message
-    const month = 7
+    const month = 8
     const username = getUser( user )
     const objective = myGoal( username )
     const pointsPerDay = Math.round( objective / workdays() )

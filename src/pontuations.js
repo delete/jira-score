@@ -2,6 +2,7 @@
 
 const getDifficulty = ( difficulty ) => {
     const dificulties = {
+        'Sem Pontuação': () => ({'points': 0, 'slug': 'NP'}),
         'Não classificado': () => ({'points': 30, 'slug': 'NC'}),
         'Muito simples': () => ({'points': 30, 'slug': 'VS'}),
         'Simples': () => ({'points': 75, 'slug': 'S'}),
@@ -20,6 +21,8 @@ const isClassified = ( type ) => {
         'Liberação de Versão Web': () => true,
         'Liberação de Versão': () => true,
         'Tarefa': () => true,
+        'Melhoria': () => true,
+        'Erro': () => true,
         'default': () => false
     }
     return (types[ type ] || types[ 'default' ])()

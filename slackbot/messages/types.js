@@ -35,7 +35,12 @@ const HELLO = [
 ]
 
 const HELP = [
-    '*entrar **USERNAME* para fazer login \n *pontos* para pegar seus pontos \n *issues* para listar as quantidades. \n'
+    (() => [
+        '*entrar USERNAME* para fazer login',
+        '*pontos* para pegar seus pontos',
+        '*issues* para listar as quantidades.', 
+        '*top10* ranking dos colaboradores.', 
+    ].join('\n'))()
 ]
 
 const LOADING = [

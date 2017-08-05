@@ -9,7 +9,6 @@ const config = JSON.parse( loadFileSync( filename, "utf8") )
 
 const to64 = ( login, pass ) => toBase64(`${login}:${pass}`)
 const auth = () => to64(config.login, config.pass)
-const workdays = () => parseInt(config.workdays)
 
 const _url = () => `http://${config.domain}/rest/api/2/search`
 const getQuery = () => '&fields=assignee,project,customfield_21711,issuetype,timespent,customfield_17132&maxResults=200'
@@ -27,11 +26,18 @@ const goal = ( user='someone.dsn.cir' ) =>
 const pointsMinute = ( user='someone.dsn.cir' ) => 
     /.*dsn.*/.test(user) ? (parseInt(config.pointsHourDSN)) : (parseInt(config.pointsHourQLD))
 
+const workdays = () => parseInt(config.workdays)
+
+const dsn =  config.dsn
+const qld =  config.qld
+
 module.exports = {
     auth,
     url,
     goal,
     pointsMinute,
     workdays,
-    isDev,
+    dsn,
+    qld,
+    isDev
 }

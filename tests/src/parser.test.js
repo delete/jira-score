@@ -3,8 +3,14 @@ const { loadFile } = require('../../src/utils')
 
 const MOCK_FILE = './tests/fixtures/issues.json'
 
+test('Test error on get issues list', () => {
+    const dataObj = { issues: null }
+    const runPartser = () => parser( dataObj )
+    expect( runPartser ).toThrowError( 'Request error!' )
+})
 
-test('Total of issues before parser method must be 11', done => {
+
+test('Total of issues before parser method must be 12', done => {
 
     loadFile(MOCK_FILE, (err, data) => {
         if (err) throw err
@@ -13,7 +19,7 @@ test('Total of issues before parser method must be 11', done => {
         const issues = dataObj.issues
         
         const actual = issues.length
-        const expected = 11
+        const expected = 12
 
         expect(actual).toBe(expected)
 
@@ -21,7 +27,7 @@ test('Total of issues before parser method must be 11', done => {
     })
 })
 
-test('Total of issues after paser method must be 11', done => {
+test('Total of issues after paser method must be 12', done => {
 
     loadFile(MOCK_FILE, (err, data) => {
         if (err) throw err
@@ -30,7 +36,7 @@ test('Total of issues after paser method must be 11', done => {
         const issues = parser(dataObj)
         
         const actual = issues.length
-        const expected = 11
+        const expected = 12
 
         expect(actual).toBe(expected)
 
