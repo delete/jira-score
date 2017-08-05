@@ -110,6 +110,24 @@ describe('Function: getDifficulty', () => {
         })
     })
 
+    describe('Issue: Sem Pontuação', () => {
+        test('"Sem Pontuação" must have "NP" as slug', () => {
+            const payload = 'Sem Pontuação'
+            const expected = 'NP' 
+            
+            const result = getDifficulty(payload).slug
+            expect(result).toBe(expected)
+        })
+
+        test('"Sem Pontuação" must return 0', () => {
+            const payload = 'Sem Pontuação'
+            const expected = 0
+            
+            const result = getDifficulty(payload).points
+            expect(result).toBe(expected) 
+        })
+    })
+
     test('"Anything" must return as "Não classificado"', () => {
         const payload = 'Anything'
         const expectedPoints = 30
@@ -167,6 +185,20 @@ describe('Function: isClassified', () => {
         expect(result).toBe(expected)
     })
 
+    test('Must return false for "Melhoria" issues', () => {
+        const payload = 'Melhoria'
+        const expected = true
+        const result = isClassified( payload )
+        expect(result).toBe(expected)
+    })
+
+    test('Must return false for "Erro" issues', () => {
+        const payload = 'Erro'
+        const expected = true
+        const result = isClassified( payload )
+        expect(result).toBe(expected)
+    })
+    
     test('Must return false for "Atendimento" issues', () => {
         const payload = 'Atendimento'
         const expected = false
