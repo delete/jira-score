@@ -6,12 +6,9 @@ const { sumPontuation, minutesToPoints, sumTime } = require('../../src/filters')
 const get = require('../../src/request')
 const { auth, url, pointsMinute } = require('../../src/configs')
 const parser = require('../../src/parser')
-const { goal, dsn, qld } = require('../../src/configs')
+const { goal, dsn, qld, startDate, endDate } = require('../../src/configs')
 
 const requestIssue = (  username ) => {
-    const startDate = '2017-08-01'
-    const endDate = '2017-08-31'
-
     const filterUrl = url( startDate, endDate, username )
     const headers = { 'Authorization': `Basic ${auth()}` }
     const options = { headers }

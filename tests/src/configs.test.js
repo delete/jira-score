@@ -19,7 +19,9 @@ describe('Test configs file', () => {
                 goalQLD: "2500",
                 pointsHourDSN: "21",
                 pointsHourQLD: "16",
-                workdays: "21"
+                workdays: "21",
+                startDate: "2017-08-01",
+                endDate: "2017-08-31"
             }
             
             fields.map( field  => expect( dataObj[field] ).toBe( expectedValues[field] ) )

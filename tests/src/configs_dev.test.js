@@ -47,4 +47,16 @@ describe('Test with ENV_DEV variable', () => {
         const expected = "http://127.0.0.1:8080/issues.json"
         expect( actual ).toBe( expected)
     })
+
+    test('start date must return 2017-08-01', () => {
+        const actual = configs.startDate()
+        const expected = '2017-08-01'
+        expect( actual ).toBe( expected )
+    })
+
+    test('end date must return 2017-08-31', () => {
+        const actual = configs.endDate()
+        const expected = '2017-08-31'
+        expect( actual ).toBe( expected )
+    })
 })
