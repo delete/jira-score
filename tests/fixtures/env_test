@@ -8,5 +8,17 @@
     "pointsHourQLD": "16",
     "workdays": "21",
     "startDate": "2017-08-01",
-    "endDate": "2017-08-31"
+    "endDate": "2017-08-31",
+    "dsn": [
+        "person1",
+        "person2"
+    ],
+    "qld": [
+        "person3",
+        "person4"
+    ],
+    "admin": [
+        "qwer123",
+        "123qwer"
+    ]
 }

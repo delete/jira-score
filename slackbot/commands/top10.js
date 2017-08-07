@@ -1,6 +1,6 @@
 const messages = require('../messages')
 const emitter = require('../eventBus')
-const { getUser } = require('../auth')
+const { getUser , isAdmin} = require('../auth')
 const { sumPontuation, minutesToPoints, sumTime } = require('../../src/filters')
 
 const get = require('../../src/request')

@@ -3,7 +3,8 @@ const emitter = require('../eventBus')
 const { isLogged, login, getUser } = require('../auth')
 
 const get = require('../../src/request')
-const { auth, url, startDate, endDate } = require('../../src/configs')
+const { url, startDate, endDate, config } = require('../../src/configs')
+const auth = require('../../src/auth')
 const parser = require('../../src/parser')
 
 const loginIsNeeded = ( channel ) => emitter.emit('SEND', messages('USER_NEEDED'), channel )
@@ -20,7 +21,7 @@ const requestIssue = (  message, event, loading = true ) => {
     
     const username = getUser( user ) 
     const filterUrl = url( startDate(), endDate(), username )
-    const headers = { 'Authorization': `Basic ${auth()}` }
+    const headers = { 'Authorization': `Basic ${auth( config.login, config.pass )}` }
     const options = { headers }
 
     get(filterUrl, options)

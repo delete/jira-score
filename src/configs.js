@@ -1,14 +1,11 @@
 'use strict'
 
-const { toBase64, loadFileSync } = require('./utils')
+const { loadFileSync } = require('./utils')
 const makeQuery = require('./query')
 
 const isDev = process.env.ENV_DEV == 'true'
 const filename = isDev ? './tests/fixtures/env_test' : './.env'
 const config = JSON.parse( loadFileSync( filename, "utf8") )
-
-const to64 = ( login, pass ) => toBase64(`${login}:${pass}`)
-const auth = () => to64(config.login, config.pass)
 
 const _url = () => `http://${config.domain}/rest/api/2/search`
 const getQuery = () => '&fields=assignee,project,customfield_21711,issuetype,timespent,customfield_17132&maxResults=200'
@@ -34,7 +31,6 @@ const startDate = () => config.startDate
 const endDate = () => config.endDate
 
 module.exports = {
-    auth,
     url,
     goal,
     pointsMinute,
@@ -43,5 +39,6 @@ module.exports = {
     qld,
     isDev,
     startDate,
-    endDate
+    endDate,
+    config
 }

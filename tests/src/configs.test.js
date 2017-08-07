@@ -21,10 +21,22 @@ describe('Test configs file', () => {
                 pointsHourQLD: "16",
                 workdays: "21",
                 startDate: "2017-08-01",
-                endDate: "2017-08-31"
+                endDate: "2017-08-31",
+                 dsn: [
+                    "person1",
+                    "person2"
+                ],
+                 qld: [
+                    "person3",
+                    "person4"
+                ],
+                admin: [
+                    "qwer123",
+                    "123qwer"
+                ]
             }
             
-            fields.map( field  => expect( dataObj[field] ).toBe( expectedValues[field] ) )
+            fields.map( field  => expect( dataObj[field] ).toEqual( expectedValues[field] ) )
 
             done()
         })
