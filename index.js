@@ -2,7 +2,7 @@
 
 const get = require('./src/request')
 const { loadFile } = require('./src/utils')
-const { auth, url, goal, pointsMinute } = require('./src/configs')
+const { auth, url, goal, pointsMinute, startDate, endDate } = require('./src/configs')
 const parser = require('./src/parser')
 const { 
     countIssuesByType,
@@ -57,10 +57,7 @@ const print = data => {
     console.log(`Goal: ${goal( USER )}`)
 }
 
-const startDate = '2017-08-01'
-const endDate = '2017-08-31'
-
-const filterUrl = url( startDate, endDate, USER )
+const filterUrl = url( startDate() endDate(), USER )
 const headers = { 'Authorization': `Basic ${auth()}` }
 const options = { headers }
 

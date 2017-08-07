@@ -9,7 +9,7 @@ const parser = require('../../src/parser')
 const { goal, dsn, qld, startDate, endDate } = require('../../src/configs')
 
 const requestIssue = (  username ) => {
-    const filterUrl = url( startDate, endDate, username )
+    const filterUrl = url( startDate(), endDate(), username )
     const headers = { 'Authorization': `Basic ${auth()}` }
     const options = { headers }
 
