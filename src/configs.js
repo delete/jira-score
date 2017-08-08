@@ -8,9 +8,9 @@ const filename = isDev ? './tests/fixtures/env_test' : './.env'
 const config = JSON.parse( loadFileSync( filename, "utf8") )
 
 const _url = () => `http://${config.domain}/rest/api/2/search`
-const getQuery = () => '&fields=assignee,project,customfield_21711,issuetype,timespent,customfield_17132&maxResults=200'
+const getParams = () => '&fields=assignee,project,customfield_21711,issuetype,timespent,customfield_17132&maxResults=200'
 const urlProd = ( startDate, endDate, user ) => 
-    [`${_url()}`, encodeURI( `${makeQuery( user, startDate, endDate )}${getQuery()}` ) ].join('')
+    [`${_url()}`, encodeURI( `${makeQuery( user, startDate, endDate ).faster()}${getParams()}` ) ].join('')
 
 const urlDev = () => config.domain
 
