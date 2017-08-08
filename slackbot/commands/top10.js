@@ -6,7 +6,7 @@ const { sumPontuation, minutesToPoints, sumTime } = require('../../src/filters')
 const get = require('../../src/request')
 const { auth, url, pointsMinute } = require('../../src/configs')
 const parser = require('../../src/parser')
-const { goal, dsn, qld, startDate, endDate } = require('../../src/configs')
+const { goal, startDate, endDate, config } = require('../../src/configs')
 
 const requestIssue = (  username ) => {
     const filterUrl = url( startDate(), endDate(), username )
@@ -47,10 +47,10 @@ const top10 = ( message ) => {
     const { channel } = message
     emitter.emit('SEND', messages('LOADING'), channel )
 
-    const devs = dsn.map( dev => 
+    const devs = config.dsn.map( dev => 
         requestIssue( dev ).then( issues  => ( { username: dev, issues } ) ) )
 
-    const qlds = qld.map( q => 
+    const qlds = config.qld.map( q => 
         requestIssue( q ).then( issues  => ( { username:q, issues } ) ) )
     
     Promise.all(devs)
