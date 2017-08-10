@@ -30,6 +30,7 @@ const workdays = () => parseInt(config.workdays)
 
 const dsn =  config.dsn
 const qld =  config.qld
+const admins =  config.admins
 const startDate = () => config.startDate
 const endDate = () => config.endDate
 
@@ -43,5 +44,6 @@ module.exports = {
     qld,
     isDev,
     startDate,
-    endDate
+    endDate,
+    admins
 }
