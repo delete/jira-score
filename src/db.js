@@ -4,6 +4,7 @@ const db = new Datastore({ filename: './datafile', autoload: true });
 
 const save = ( object, callback ) => db.insert( object, callback )
 const find = ( query, callback ) => db.find( query, callback )
+const findOne = ( query, callback ) => db.findOne( query, callback )
 const remove = ( query, callback ) => db.remove( query, {}, callback )
 const update = ( query, update, options, callback ) => db.update( query, update, options, callback )
 const count = ( query, callback ) => db.count( query, callback )
@@ -12,15 +13,15 @@ const monthField = ({ month, field, value }) => ({ $set: { [`months.${month}.${f
 const updateIssuesQuery = ( month, issues )=> monthField({ month, field: 'issues', value: issues })
 
 const updatePlayer = player => {
-    const updatemonthField = ( month, fieldValue, callback )=> 
-        update( player, monthField({month, fieldValue }) , {}, callback )
+    const updatemonthField = ( month, field, value, callback ) =>
+        update( player, monthField({month, field, value }), {}, callback )
 
     const updateIssuesOn = ( month, newIssues, callback ) => 
-        update( player, updateIssuesQuery( month, newIssues ) , {}, callback )
+        update( player, updateIssuesQuery( month, newIssues ), {}, callback )
     
     return {
         updatemonthField,
-        updateIssuesOn
+        updateIssuesOn        
     }
 }
 
@@ -28,9 +29,11 @@ module.exports = {
     crud: {
         save,
         find,
+        findOne,
         remove,
         update,
-        count
+        count,
+        db
     },
     updatePlayer
 }

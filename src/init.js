@@ -1,9 +1,8 @@
 'use strict'
 
-const { dsn, qld , admins} = require('./configs')
+const { dsn, qld } = require('./configs')
 const { crud } = require('./db')
 
-const isAdmin = user => admins.includes( user )
 const monthsName = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov',  'dec' ]
 const months = {}
 
@@ -22,10 +21,10 @@ const saveUser = username => {
     const player = {
         username, // username da empresa
         months,
-        slackIid: username,
+        slackId: username,
         channel: '', // canal do slack 
         updated: new Date(), //timestamp da ultima atualização no jira
-        isAdmin: isAdmin( username ) // bool
+        isAdmin: false // bool
     }
 
     crud.save( player, (err, newDoc) => {

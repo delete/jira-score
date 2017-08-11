@@ -15,7 +15,8 @@ const WELCOME = [
 
 const USER_FOUND = [
     'Opa, opa! Esse usuário já existe meu chapa!',
-    'Já tem gente usando seu nome e vendo seus pontos. HA HA'
+    'Já tem gente usando seu nome e vendo seus pontos. HA HA',
+    'Cê já ta logado nem.'
 ]
 
 const USER_NEEDED = [
