@@ -1,19 +1,21 @@
 const messages = require('../messages')
 const emitter = require('../eventBus')
-const { getUser } = require('../auth')
 
-const { pointsMinute } = require('../../src/configs')
 const { 
     countIssuesByType,
     countIssuesByDifficulty,
     sumTime,
-    scoredIssues,
     minutesToPoints,
 } = require('../../src/filters')
 
-const issues = ( message, issues ) => {
-    const user = message.user
-    const username = getUser( user )
+const printIssue = issue => `${issue.key} -> ${issue.difficulty} -> ${issue.pontuation}`
+
+const issues = ( message, player ) => {
+    const month = 'aug'
+    const { username } = player
+    const { issues, pointsPerHour } = player.months[month]
+    const { channel } = message
+
     const nc = countIssuesByDifficulty( issues, 'Não classificado') 
     const s = countIssuesByDifficulty( issues, 'Simples')
     const vs = countIssuesByDifficulty( issues, 'Muito simples')
@@ -21,12 +23,10 @@ const issues = ( message, issues ) => {
     const h = countIssuesByDifficulty( issues, 'Difícil')
     const vh = countIssuesByDifficulty( issues, 'Muito difícil')
 
-    const pointsPerMinute = pointsMinute( username )
-
     const cs = countIssuesByType( issues, 'Atendimento')
     const cst = sumTime( issues, 'Atendimento' )
 
-    const cstp = minutesToPoints( cst, pointsPerMinute )
+    const cstp = minutesToPoints( cst, pointsPerHour )
 
     const tasks = countIssuesByType( issues, 'Tarefa')
 
@@ -43,7 +43,10 @@ const issues = ( message, issues ) => {
         `\n\nTotal de issues feitas: *${issues.length}*`,
     ].join('\n')
     
-    emitter.emit('SEND', response, message.channel )
+    emitter.emit('SEND', response, channel )
+
+    const allIssuesResponse = issues.map( printIssue ).join('\n')
+    emitter.emit('SEND', allIssuesResponse, channel )
 }
 
 console.log('on ISSUES')

@@ -1,7 +1,8 @@
 const emitter = require('../../../slackbot/eventBus')
-const mockIssues = require('../../fixtures/issues')
+const player = require('../../fixtures/player')
 const { ONE_THIRD, LESS_HALF, MORE_HALF, COMPLETED } = require('../../../slackbot/messages/types')
 const score = require('../../../slackbot/commands/score')
+
 
 describe('Score command Must emit an event and data object', () => {
   
@@ -11,8 +12,7 @@ describe('Score command Must emit an event and data object', () => {
             emitter.on('SEND', eventSpy )
 
             const message = {}
-            const issues = []
-            score( message, issues )
+            score( message, player )
 
             expect(eventSpy).toBeCalled()
         })
@@ -21,7 +21,7 @@ describe('Score command Must emit an event and data object', () => {
             const message = {
                 text: 'help me',
                 channel: 'aaa',
-                user: '1234'
+                user: '123465'
             }
             const expectedResponse = [
                 /.*\*600 minutos\* de atendimento.*/,
@@ -36,7 +36,7 @@ describe('Score command Must emit an event and data object', () => {
             const eventSpy = jest.fn()
             emitter.on('SEND', eventSpy )
 
-            score( message, mockIssues )
+            score( message, player )
 
             expect(eventSpy).toBeCalled()
 
@@ -110,7 +110,8 @@ const testScoreMessage = ( messages, issues ) => {
     const eventSpy = jest.fn()
     emitter.on('SEND', eventSpy )
 
-    score( message, issues )
+    player.months.aug.issues = issues
+    score( message, player )
 
     const [ actualResponse, channel ] = eventSpy.mock.calls[0]
     const responseLines = actualResponse.split('\n')

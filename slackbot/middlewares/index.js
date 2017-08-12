@@ -1,1 +1,1 @@
-require('./request-issues')
+require('./load-issues')

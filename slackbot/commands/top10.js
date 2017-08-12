@@ -1,69 +1,70 @@
 const messages = require('../messages')
 const emitter = require('../eventBus')
-const { getUser } = require('../auth')
 const { sumPontuation, minutesToPoints, sumTime } = require('../../src/filters')
+const { crud } = require('../../src/db')
+const { admins } = require('../../src/configs')
 
-const get = require('../../src/request')
-const { auth, url, pointsMinute } = require('../../src/configs')
-const parser = require('../../src/parser')
-const { goal, dsn, qld, startDate, endDate } = require('../../src/configs')
-
-const requestIssue = (  username ) => {
-    const filterUrl = url( startDate, endDate, username )
-    const headers = { 'Authorization': `Basic ${auth()}` }
-    const options = { headers }
-
-    return get(filterUrl, options)
-        .then( ( response ) => parser(response.data) )
-        .catch( jiraErrorMessage )
-}
-
-const jiraErrorMessage = ( response ) => {
-    console.log( `Command loadIssues error: ${response}` )
-    return messages('ERROR_JIRA')
-}
-
-const reachedGoal = ( points, user ) => points > goal( user ) ? ':sunglasses:' :  ''
+const isAdmin = ( user ) => admins.includes( user ) 
+// const reachedGoal = ( points, user ) => points > goal( user ) ? ':sunglasses:' :  ''
 const sortByPoints = ( people ) => [...people].sort( (a,b) => b.points - a.points );
-const printPerson = ( person, index ) => `${index}º - ${person.username}  ${reachedGoal( person.points, person.username )}`
+const printPerson = ( person, index ) => `${index}º - ${person.username}`
+const printPersonAsAdmin = ( person, index ) => `${index + 1}º - ${person.username}  => ${person.points}`
+const sendResponse = ( response, channel ) => emitter.emit('SEND', response, channel )
 
-const mountResponse = ( people, channel ) => {
-    const peopleWithPoints = people.map( person =>  {
-        return {
-            username: person.username,
-            points: sumPontuation( person.issues ) + minutesToPoints( sumTime( person.issues, 'Atendimento' ), pointsMinute( person.username ) )
-        }
+const mountResponse = ( user, players, month ) => {
+    const playerWithPoints = players.map( player =>  {
+        const { username } = player
+        const { issues, pointsPerHour } = player.months[month]
+        const issuesPoints = sumPontuation( issues )
+        const costumerServicePoints = minutesToPoints( sumTime( issues, 'Atendimento' ), pointsPerHour )
+        const points = issuesPoints + costumerServicePoints
+
+        return { username, points }
     })
-    const peopleTop = sortByPoints( peopleWithPoints)
-    const topTen = peopleTop
-        .map( printPerson )
+    const playersTop = sortByPoints( playerWithPoints)
+    const topTen = playersTop
+        .map( isAdmin(user) ? printPersonAsAdmin : printPerson )
         .slice(0, 10)
         .join('\n')
 
-    emitter.emit('SEND', topTen, channel )
+    return topTen  
 }
+
+const mountTop = ( user, month, channel, topMessage ) => players => {
+        const response = mountResponse( user, players, month )
+        sendResponse( topMessage, channel )
+        sendResponse( response, channel )
+    }
 
 const top10 = ( message ) => {
-    const { channel } = message
-    emitter.emit('SEND', messages('LOADING'), channel )
-
-    const devs = dsn.map( dev => 
-        requestIssue( dev ).then( issues  => ( { username: dev, issues } ) ) )
-
-    const qlds = qld.map( q => 
-        requestIssue( q ).then( issues  => ( { username:q, issues } ) ) )
+    const { channel, user } = message
+    const month = 'aug'
+    const dsnPlayers = {username: /.*dsn.*/ }
+    const qldPlayers = {username: /.*qld.*/ }
     
-    Promise.all(devs)
-       .then(( devs ) => {
-            emitter.emit('SEND', '*TOP 10 do desenvolvimento:* ', channel )
-            mountResponse( devs, channel )
+    const mountTopDsnWith = mountTop( user, month, channel, '*TOP 10 do desenvolvimento:*' )
+    const mountTopToQldWith = mountTop( user, month,  channel,  '*TOP 10  da qualidade:* ')
+
+    // Must reload the database to get the new values
+    crud.db.loadDatabase(function (err) {
+        if ( err ) throw err
+
+        // Get all DSN
+        crud.find( dsnPlayers, (err, docs) => {
+            if ( err ) throw err
+
+            if ( docs.length ) mountTopDsnWith( docs )
         })
 
-    Promise.all(qlds)
-       .then(( qlds ) => {
-            emitter.emit('SEND', '*TOP 10 da qualidade:* ', channel )
-            mountResponse( qlds, channel )
+        // Get all QLD
+        crud.find( qldPlayers, (err, docs) => {
+            if ( err ) throw err
+
+            if ( docs.length ) mountTopToQldWith( docs )                
         })
+
+    });
 }
+
 console.log('on TOP10')
 module.exports = top10

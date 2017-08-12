@@ -1,28 +1,34 @@
 const messages = require('../messages')
 const emitter = require('../eventBus')
-const { getUser } = require('../auth')
 
-const { goal: myGoal, workdays } = require('../../src/configs')
 const { getWorkingDays } = require('../../src/utils')
-const { sumPontuation } = require('../../src/filters')
+const { sumPontuation, sumTime, minutesToPoints } = require('../../src/filters')
 
-const goal = ( message, issues ) => {
+const myGoal = ( message, player ) => {
     // Must be improved, passing the month as parameter to goal function
-    const { user, channel } = message
-    const month = 8
-    const username = getUser( user )
-    const objective = myGoal( username )
-    const pointsPerDay = Math.round( objective / workdays() )
+    const monthNum = 8
+    const month = 'aug'
+    const { username } = player
+    const { issues, pointsPerHour , workdays, goal } = player.months[month]
+    const { channel } = message
+
+
+    const costumerServiceTime = sumTime( issues, 'Atendimento' )
+    const timeInPoints = minutesToPoints( costumerServiceTime, pointsPerHour )
+
+    const objectiveMinusCostumerService = ( goal - timeInPoints )
+
+    const pointsPerDay = ( Math.round( objectiveMinusCostumerService / workdays ) )
     
     const currentDate = new Date()
-    const startDate = new Date(currentDate.getFullYear(), month - 1, 1) // must subsctract 1
+    const startDate = new Date(currentDate.getFullYear(), monthNum - 1, 1) // must subsctract 1
     const workingDays = getWorkingDays( startDate, currentDate )
     
     const issuesPontuation = sumPontuation( issues )
     const mypointsPerDay = Math.round( issuesPontuation / workingDays )
    
     const response = [
-        `A pontuação diária desejada é de *${pointsPerDay}/dia*`,
+        `A pontuação diária desejada é de *${pointsPerDay}/dia* (já com abono de ${timeInPoints} pontos de atendimento)`,
         `Já passou *${workingDays} dias* e a sua pontuação diária está sendo de *${mypointsPerDay}/dia*.`
     ].join('\n')
     
@@ -30,4 +36,4 @@ const goal = ( message, issues ) => {
 }
 
 console.log('on GOAL')
-module.exports = goal
+module.exports = myGoal

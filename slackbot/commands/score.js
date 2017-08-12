@@ -1,8 +1,6 @@
 const messages = require('../messages')
 const emitter = require('../eventBus')
-const { getUser } = require('../auth')
 
-const { goal, pointsMinute } = require('../../src/configs')
 const { 
     sumPontuation,
     sumTime,
@@ -22,31 +20,29 @@ const trollMessage = ( percentage ) =>
                 ? messages('MORE_HALF')
                 : messages('COMPLETED')
 
-const score = (  message, issues ) => {
-    const user = message.user
-    const username = getUser( user )
-    const objective = goal( username )
-    const pointsPerMinute = pointsMinute( username )
+const score = (  message, player ) => {
+    const month = 'aug'
+    const { username } = player
+    const { issues, pointsPerHour, goal } = player.months[month]
     
     const issuesPontuation = sumPontuation( issues )
-    const customServiceTime = sumTime( issues, 'Atendimento' )
-    const totalTime = customServiceTime
+    const costumerServiceTime = sumTime( issues, 'Atendimento' )
 
-    const timeInPoints = minutesToPoints( totalTime, pointsPerMinute )
-    const actualPercentage = pointsPercentage(objective, issuesPontuation)
-    const restPercentage = ( 100 - actualPercentage ).toFixed(2)
+    const timeInPoints = minutesToPoints( costumerServiceTime, pointsPerHour )
+    const actualPercentage = pointsPercentage( goal, issuesPontuation )
+    const restPercentage = ( 100 - actualPercentage ).toFixed( 2 )
 
-    const rest = ( objective - issuesPontuation )
+    const rest = ( goal - issuesPontuation )
     const restToGoal = rest < 0 ? 0 : rest
-   
+       
     const response = [
-        `Você fez *${totalTime} minutos* de atendimento, o que da *${timeInPoints}* pontos`,
-        `Você tem *${issuesPontuation}* pontos e completou *${actualPercentage}%* da meta *${objective}* !`,
+        `Você fez *${costumerServiceTime} minutos* de atendimento, o que da *${timeInPoints}* pontos`,
+        `Você tem *${issuesPontuation}* pontos e completou *${actualPercentage}%* da meta *${goal}* !`,
         `Faltam *${restToGoal}* pontos, *${restPercentage < 0 ? 0 : restPercentage}%* para bater a meta!`,
         `\n${trollMessage( actualPercentage )}`
     ].join('\n')
     
-    emitter.emit('SEND', response, message.channel )
+    emitter.emit( 'SEND', response, message.channel )
 }
-console.log('on SCORE')
+console.log( 'on SCORE' )
 module.exports = score
