@@ -15,7 +15,7 @@ const loadIssues = (  message, event ) => {
     	if ( err ) throw err
 
 	    crud.findOne( player, (err, doc) => 
-	        doc ? emitter.emit(event, message, doc.months[month].issues ) : loginIsNeeded( channel) )  
+	        doc ? emitter.emit(event, message, doc ) : loginIsNeeded( channel) )  
 	});
 }
 

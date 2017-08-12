@@ -19,7 +19,7 @@ const {
     hello,
     help,
     mySelf,
-    requestIssues,
+    loadIssues,
     login,
     top10
 } = require('./response').callbacks
@@ -48,19 +48,19 @@ rtm.on(RTM_EVENTS.MESSAGE, message => {
 rtm.on(RTM_EVENTS.MESSAGE, message => {
     const event = 'SCORE'
     const runOn = subscribe({ message, event })
-    runOn( POINTS, requestIssues )
+    runOn( POINTS, loadIssues )
 })
 
 rtm.on(RTM_EVENTS.MESSAGE, message => {
     const event = 'ISSUES'
     const runOn = subscribe({ message, event })
-    runOn( ISSUES, requestIssues )
+    runOn( ISSUES, loadIssues )
 })
 
 rtm.on(RTM_EVENTS.MESSAGE, message => {
     const event = 'GOAL'
     const runOn = subscribe({ message, event })
-    runOn( GOAL, requestIssues )
+    runOn( GOAL, loadIssues )
 })
 
 rtm.start()
