@@ -104,17 +104,17 @@ describe('Must emit an event and data object', () => {
         })
     })
 
-    describe('Request issues callback', () => {
-        it('should emit an "REQUEST_ISSUES"', ( ) => {
+    describe('Load issues callback', () => {
+        it('should emit an "LOAD_ISSUES"', ( ) => {
             const eventSpy = jest.fn()
-            emitter.on('REQUEST_ISSUES', eventSpy )
+            emitter.on('LOAD_ISSUES', eventSpy )
 
-            callbacks.requestIssues( {} )
+            callbacks.loadIssues( {} )
 
             expect(eventSpy).toBeCalled()
         })
 
-        it('should emit an "REQUEST_ISSUES"', ( ) => {
+        it('should emit an "LOAD_ISSUES"', ( ) => {
             const message = {
                 text: 'my score',
                 channel: 'aaa'
@@ -122,9 +122,9 @@ describe('Must emit an event and data object', () => {
             const event = 'score'
             
             const eventSpy = jest.fn()
-            emitter.on('REQUEST_ISSUES', eventSpy )
+            emitter.on('LOAD_ISSUES', eventSpy )
 
-            callbacks.requestIssues( message, event )
+            callbacks.loadIssues( message, event )
 
             expect(eventSpy).toBeCalled()
             expect(eventSpy).toBeCalledWith( message, event )
