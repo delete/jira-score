@@ -48,10 +48,10 @@ const top10 = ( message ) => {
     const { channel, user } = message
     emitter.emit('SEND', messages('LOADING'), channel )
 
-    const devs = dsn.map( dev => 
+    const devs = config.dsn.map( dev => 
         requestIssue( dev ).then( issues  => ( { username: dev, issues } ) ) )
 
-    const qlds = qld.map( q => 
+    const qlds = config.qld.map( q => 
         requestIssue( q ).then( issues  => ( { username:q, issues } ) ) )
     
     Promise.all(devs)

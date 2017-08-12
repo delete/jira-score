@@ -3,7 +3,6 @@
 const fs = require('fs')
 
 const toBase64 = ( string ) =>  Buffer.from(string).toString('base64')
-
 const loadFile = ( name, callback ) => fs.readFile(name, "utf8", callback)
 const loadFileSync = ( name ) => fs.readFileSync(name, "utf8")
 
@@ -14,8 +13,7 @@ const splitStringAndReturnLast = ( rawString ) => {
 }
 
 const isWeekend = ( weekDay ) => ( weekDay === 0 || weekDay === 6 )
-
-// TODO make this function more functional
+// TODO make this function more functional, using reduce maybe?
 const getWorkingDays = ( startDate, endDate ) => {
     let result = 0;
 

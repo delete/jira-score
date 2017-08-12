@@ -12,12 +12,6 @@ describe('Test with ENV_DEV variable', () => {
         expect( typeof configs ).toBe( 'object' )
     })
   
-    test('auth method must return login:pass as base64', () => {
-        const actual = configs.auth()
-        const expected = 'ZmVsbGlwZS51c2VyOjEyMzIxMw=='
-        expect( actual ).toBe( expected) 
-    })
-
     test('goal method must return 3528 to DSN usrs', () => {
         const actual = configs.goal('user.dsn.cir')
         const expected = 3528
