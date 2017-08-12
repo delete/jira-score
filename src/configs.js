@@ -26,5 +26,6 @@ module.exports = {
     isDev,
     startDate,
     endDate,
-    config
+    config,
+    admins
 }
