@@ -12,30 +12,6 @@ describe('Test with ENV_DEV variable', () => {
         expect( typeof configs ).toBe( 'object' )
     })
   
-    test('goal method must return 3528 to DSN usrs', () => {
-        const actual = configs.goal('user.dsn.cir')
-        const expected = 3528
-        expect( actual ).toBe( expected)
-    })
-
-    test('goal method must return 2500 to QLD usrs', () => {
-        const actual = configs.goal('user.qld.cir')
-        const expected = 2500
-        expect( actual ).toBe( expected)
-    })
-
-    test('goal method must return 21 to DSN usrs', () => {
-        const actual = configs.pointsMinute('user.dsn.cir')
-        const expected = 21
-        expect( actual ).toBe( expected)
-    })
-
-    test('goal method must return 16 to QLD usrs', () => {
-        const actual = configs.pointsMinute('user.qld.cir')
-        const expected = 16
-        expect( actual ).toBe( expected)
-    })
-
     test('url method must return http://127.0.0.1:8080/issues.json to dev environment', () => {
         const actual = configs.url()
         const expected = "http://127.0.0.1:8080/issues.json"
