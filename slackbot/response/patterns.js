@@ -8,6 +8,7 @@ const ISSUES = /issues|issue|tarefas/i
 const LOGIN = /^(entrar|entar|entra|logar|login|vai) .*(dsn|qld).cir$/i
 const GOAL = /^meta/i
 const TOP10 = /top10|topten/i
+const PLAYER = /^(filhote|player|jogador) .*(dsn|qld).cir$/i
 
 module.exports = {
     GOOD_MORNING,
@@ -19,5 +20,6 @@ module.exports = {
     ISSUES,
     LOGIN,
     GOAL,
-    TOP10
+    TOP10,
+    PLAYER
 }

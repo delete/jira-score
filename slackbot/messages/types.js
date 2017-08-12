@@ -19,9 +19,17 @@ const USER_FOUND = [
     'Cê já ta logado nem.'
 ]
 
+const USER_NOT_FOUND = [
+    'Não achei esse usuário chefe, escreve direito ae!'
+]
+
 const USER_NEEDED = [
     'Ou! Preciso do seu login antes!',
     'Cara crachá, cara crachá. Cade o login.'
+]
+
+const NOT_ADMIN = [
+    'https://media0.giphy.com/media/njYrp176NQsHS/giphy-downsized.gif'
 ]
 
 const MY_SELF = [
@@ -101,5 +109,7 @@ module.exports = {
     HELLO,
     HELP,
     LOADING,
-    COMPLETED
+    COMPLETED,
+    NOT_ADMIN,
+    USER_NOT_FOUND
 }

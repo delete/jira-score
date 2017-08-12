@@ -123,6 +123,22 @@ describe('Must return a message containing in the list', () => {
         })
     })
 
+    describe('NOT_ADMIN message', () => {  
+        it('should return an message from the list', ( ) => {
+            const actual = messages( 'NOT_ADMIN' )
+
+            expect( types.NOT_ADMIN ).toContain( actual );
+        })
+    })
+
+    describe('USER_NOT_FOUND message', () => {  
+        it('should return an message from the list', ( ) => {
+            const actual = messages( 'USER_NOT_FOUND' )
+
+            expect( types.USER_NOT_FOUND ).toContain( actual );
+        })
+    })
+
     describe('default message', () => {  
         it('should return an errow if the options does not exist', ( ) => {
             const expectedError = new Error('Message not found')

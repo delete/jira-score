@@ -12,7 +12,8 @@ const {
     ISSUES,
     LOGIN,
     GOAL,
-    TOP10
+    TOP10,
+    PLAYER
 } = require('./response').patterns
 const { 
     goodMorning,
@@ -21,7 +22,8 @@ const {
     mySelf,
     loadIssues,
     login,
-    top10
+    top10,
+    player
 } = require('./response').callbacks
 // Load listeners
 require('./commands')
@@ -43,6 +45,7 @@ rtm.on(RTM_EVENTS.MESSAGE, message => {
     runOn( MY_SELF, mySelf )
     runOn( LOGIN, login )
     runOn( TOP10, top10 )
+    runOn( PLAYER, player )
 })
 
 rtm.on(RTM_EVENTS.MESSAGE, message => {
