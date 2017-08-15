@@ -10,7 +10,7 @@ const config = JSON.parse( loadFileSync( filename, "utf8") )
 const urlDev = () => config.domain
 
 const url = ( startDate, endDate, user=config.login ) => 
-    isDev ? urlDev() : urlProd( startDate, endDate, user )
+    isDev ? urlDev() : urlProd( config.domain, startDate, endDate, user )
 
 const workdays = () => parseInt(config.workdays)
 

@@ -1,6 +1,7 @@
 'use strict'
 const get = require('./request')
-const { auth, url, config, startDate, endDate, dsn, qld, workdays } = require('./configs')
+const { url, config, startDate, endDate, workdays } = require('./configs')
+const auth = require('./auth')
 const parser = require('./parser')
 const { crud } = require('./db')
 
@@ -30,7 +31,7 @@ const saveData = ( data, username ) => {
 
 const saveUserData = username => {
     const filterUrl = url( startDate(), endDate(), username )
-    const headers = { 'Authorization': `Basic ${auth()}` }
+    const headers = { 'Authorization': `Basic ${auth( config.login, config.pass )}` }
     const options = { headers }
 
     get(filterUrl, options)
@@ -39,5 +40,5 @@ const saveUserData = username => {
 }
 
 
-const players = [ ...dsn, ...qld ]
+const players = [ ...config.dsn, ...config.qld ]
 players.map( saveUserData )
