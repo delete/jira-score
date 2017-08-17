@@ -20,16 +20,20 @@ const getIssueInfo = ( obj ) =>  {
     }
 }
 
+const hasLog = time => time > 0
+const alreadyHasPoint = difficulty =>  ( (difficulty !== 'Não classificado') && (difficulty !== 'Sem Pontuação') )
+
 module.exports = ( body ) => {
     if ( !body.issues ) throw new Error('Request error!')
     
     return body.issues.map( issue => {
         const newIssue = getIssueInfo( issue )
 
-        if ( newIssue.difficulty && isClassified(newIssue.type) && newIssue.time > 0  ) {
+        if ( alreadyHasPoint(newIssue.difficulty) || ( isClassified(newIssue.type) && hasLog(newIssue.time) )  ) {
             const issueScored = getDifficulty( newIssue.difficulty )
             newIssue.pontuation = issueScored.points
         } else {
+            newIssue.difficulty = formatDificultyString( '0 - Sem Pontuação' )
             newIssue.pontuation = 0
         }
         return newIssue

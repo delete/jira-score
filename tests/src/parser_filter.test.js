@@ -64,7 +64,7 @@ test('Issues must have all fields right', done => {
         const actual = issues[6]
         const expected = {
             key: 'TEST-113',
-            difficulty: 'Não classificado',
+            difficulty: 'Sem Pontuação',
             pontuation: 0,
             time: 60,
             type: 'Atendimento'
