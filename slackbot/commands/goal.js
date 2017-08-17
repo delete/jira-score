@@ -29,7 +29,7 @@ const myGoal = ( message, player ) => {
    
     const response = [
         `A pontuação diária desejada é de *${pointsPerDay}/dia* (já com abono de ${timeInPoints} pontos de atendimento)`,
-        `Já passou *${workingDays} dias* e a sua pontuação diária está sendo de *${mypointsPerDay}/dia*.`
+        `Já passou *${workingDays}/${workdays} dias* e a sua pontuação diária está sendo de *${mypointsPerDay}/dia*.`
     ].join('\n')
     
     emitter.emit('SEND', response, channel )

@@ -35,6 +35,8 @@ const rtm = new RtmClient(bot_token)
 const sender = ( response, channel ) => rtm.sendMessage( response, channel ) 
 emitter.on( 'SEND', sender )
 
+rtm.on(RTM_EVENTS.MESSAGE, message => emitter.emit( 'PRINT_COMMAND', message ) )
+
 // General commands
 rtm.on(RTM_EVENTS.MESSAGE, message => {    
     const runOn = subscribe({ message })
