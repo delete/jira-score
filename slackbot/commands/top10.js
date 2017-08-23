@@ -5,21 +5,21 @@ const { crud } = require('../../src/db')
 const { admins } = require('../../src/configs')
 
 const isAdmin = ( user ) => admins.includes( user ) 
-// const reachedGoal = ( points, user ) => points > goal( user ) ? ':sunglasses:' :  ''
+const reachedGoal = ( points, goal ) => points > goal ? ':sunglasses:' :  ''
 const sortByPoints = ( people ) => [...people].sort( (a,b) => b.points - a.points );
-const printPerson = ( person, index ) => `${index}º - ${person.username}`
-const printPersonAsAdmin = ( person, index ) => `${index + 1}º - ${person.username}  => ${person.points}`
+const printPerson = ( person, index ) => `${index}º - ${person.username} ${reachedGoal(person.points, person.goal)}`
+const printPersonAsAdmin = ( person, index ) => `${index + 1}º - ${person.username}  => ${person.points} - ${person.issues.length} issues ${reachedGoal(person.points, person.goal)}`
 const sendResponse = ( response, channel ) => emitter.emit('SEND', response, channel )
 
 const mountResponse = ( user, players, month ) => {
     const playerWithPoints = players.map( player =>  {
         const { username } = player
-        const { issues, pointsPerHour } = player.months[month]
+        const { issues, pointsPerHour, goal } = player.months[month]
         const issuesPoints = sumPontuation( issues )
         const costumerServicePoints = minutesToPoints( sumTime( issues, 'Atendimento' ), pointsPerHour )
         const points = issuesPoints + costumerServicePoints
 
-        return { username, points }
+        return { username, points, issues, goal }
     })
     const playersTop = sortByPoints( playerWithPoints)
     const topTen = playersTop

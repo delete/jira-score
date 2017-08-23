@@ -12,7 +12,8 @@ const {
     ISSUES,
     LOGIN,
     GOAL,
-    TOP10
+    TOP10,
+    PLAYER
 } = require('./response').patterns
 const { 
     goodMorning,
@@ -21,7 +22,8 @@ const {
     mySelf,
     loadIssues,
     login,
-    top10
+    top10,
+    player
 } = require('./response').callbacks
 // Load listeners
 require('./commands')
@@ -33,6 +35,8 @@ const rtm = new RtmClient(bot_token)
 const sender = ( response, channel ) => rtm.sendMessage( response, channel ) 
 emitter.on( 'SEND', sender )
 
+rtm.on(RTM_EVENTS.MESSAGE, message => emitter.emit( 'PRINT_COMMAND', message ) )
+
 // General commands
 rtm.on(RTM_EVENTS.MESSAGE, message => {    
     const runOn = subscribe({ message })
@@ -43,6 +47,7 @@ rtm.on(RTM_EVENTS.MESSAGE, message => {
     runOn( MY_SELF, mySelf )
     runOn( LOGIN, login )
     runOn( TOP10, top10 )
+    runOn( PLAYER, player )
 })
 
 rtm.on(RTM_EVENTS.MESSAGE, message => {

@@ -156,4 +156,30 @@ describe('Must emit an event and data object', () => {
             expect(eventSpy).toBeCalledWith( message )
         })
     })
+
+    describe('Player callback', () => {
+        it('should emit an "PLAYER"', ( ) => {
+            const eventSpy = jest.fn()
+            emitter.on('PLAYER', eventSpy )
+
+            callbacks.player( {} )
+
+            expect(eventSpy).toBeCalled()
+        })
+
+        it('should emit an "PLAYER"', ( ) => {
+            const message = {
+                text: 'player fellipe',
+                channel: 'aaa'
+            }
+           
+            const eventSpy = jest.fn()
+            emitter.on('PLAYER', eventSpy )
+
+            callbacks.player( message )
+
+            expect(eventSpy).toBeCalled()
+            expect(eventSpy).toBeCalledWith( message )
+        })
+    })
 })

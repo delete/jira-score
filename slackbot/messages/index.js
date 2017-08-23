@@ -19,6 +19,8 @@ const messages = ( t ) => {
         HELP: () => random( types[t] ),
         LOADING: () => random( types[t] ),
         COMPLETED: () => random( types[t] ),
+        NOT_ADMIN: () => random( types[t] ),
+        USER_NOT_FOUND: () => random( types[t] ),
         default: () => new Error('Message not found')
     }
      return (ts[ t ] || ts[ 'default' ])()
